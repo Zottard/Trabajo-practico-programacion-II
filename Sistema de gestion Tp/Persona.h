@@ -1,6 +1,4 @@
-#ifndef PERSONA_H
-#define PERSONA_H
-
+#pragma once
 
 class Persona
 {

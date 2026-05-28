@@ -2,10 +2,7 @@
 
 Manager::Manager()
 {
-    //ctor
+
 }
 
-Manager::~Manager()
-{
-    //dtor
-}
+

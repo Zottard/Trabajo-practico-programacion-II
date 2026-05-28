@@ -2,10 +2,7 @@
 
 ServiceCliente::ServiceCliente()
 {
-    //ctor
+
 }
 
-ServiceCliente::~ServiceCliente()
-{
-    //dtor
-}
+

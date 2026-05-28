@@ -1,16 +1,12 @@
-#ifndef SERVICEPRODUCTO_H
-#define SERVICEPRODUCTO_H
-
+#pragma once
+#include "Producto.h"
 
 class ServiceProducto
 {
     public:
         ServiceProducto();
-        virtual ~ServiceProducto();
 
-    protected:
 
     private:
 };
 
-#endif // SERVICEPRODUCTO_H

@@ -1,16 +1,12 @@
-#ifndef EMPLEADO_H
-#define EMPLEADO_H
-
+#pragma once
 
 class Empleado
 {
     public:
         Empleado();
-        virtual ~Empleado();
 
-    protected:
 
     private:
 };
 
-#endif // EMPLEADO_H
+

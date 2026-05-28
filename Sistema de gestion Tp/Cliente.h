@@ -1,16 +1,12 @@
-#ifndef CLIENTE_H
-#define CLIENTE_H
+#pragma once
 
 
 class Cliente
 {
     public:
         Cliente();
-        virtual ~Cliente();
-
-    protected:
 
     private:
 };
 
-#endif // CLIENTE_H
+

@@ -2,10 +2,7 @@
 
 Venta::Venta()
 {
-    //ctor
+
 }
 
-Venta::~Venta()
-{
-    //dtor
-}
+

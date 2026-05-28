@@ -2,10 +2,6 @@
 
 Producto::Producto()
 {
-    //ctor
+
 }
 
-Producto::~Producto()
-{
-    //dtor
-}

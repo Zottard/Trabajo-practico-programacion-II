@@ -1,16 +1,9 @@
-#ifndef SERVICECLIENTE_H
-#define SERVICECLIENTE_H
-
-
+#pragma once
+#include "Cliente.h"
 class ServiceCliente
 {
     public:
         ServiceCliente();
-        virtual ~ServiceCliente();
-
-    protected:
 
     private:
 };
-
-#endif // SERVICECLIENTE_H

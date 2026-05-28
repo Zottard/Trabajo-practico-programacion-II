@@ -1,16 +1,11 @@
-#ifndef HORARIOS_H
-#define HORARIOS_H
+#pragma once
 
 
 class Horarios
 {
     public:
-        Horarios();
-        virtual ~Horarios();
 
-    protected:
 
     private:
 };
 
-#endif // HORARIOS_H

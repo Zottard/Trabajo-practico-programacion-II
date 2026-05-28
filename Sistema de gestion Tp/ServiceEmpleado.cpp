@@ -2,10 +2,5 @@
 
 ServiceEmpleado::ServiceEmpleado()
 {
-    //ctor
-}
 
-ServiceEmpleado::~ServiceEmpleado()
-{
-    //dtor
 }

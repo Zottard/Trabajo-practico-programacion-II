@@ -2,10 +2,5 @@
 
 Empleado::Empleado()
 {
-    //ctor
-}
 
-Empleado::~Empleado()
-{
-    //dtor
-}
+

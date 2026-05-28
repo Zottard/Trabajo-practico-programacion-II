@@ -2,10 +2,6 @@
 
 Cliente::Cliente()
 {
-    //ctor
+
 }
 
-Cliente::~Cliente()
-{
-    //dtor
-}

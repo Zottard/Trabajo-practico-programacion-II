@@ -1,16 +1,15 @@
-#ifndef SERVICEVENTA_H
-#define SERVICEVENTA_H
-
+#pragma once
+#include "Venta.h"
+#include "Producto.h"
+#include "Empleado.h"
+#include "Cliente.h"
 
 class ServiceVenta
 {
     public:
         ServiceVenta();
-        virtual ~ServiceVenta();
 
-    protected:
 
     private:
 };
 
-#endif // SERVICEVENTA_H
