@@ -1,15 +1,28 @@
-#ifndef FECHA_H
-#define FECHA_H
-
-
+#pragma once
 class Fecha
 {
     public:
         Fecha();
-        virtual ~Fecha();
+        void fechaActual();
 
-    protected:
+        void mostrarFecha();
+        void mostrarHora();
+
+        void setAnio(int);
+        void setmes(int);
+        void setDia(int);
+        void setHora(int);
+        void setMinuto(int);
+
+        int getAnio();
+        int getMes();
+        int getDia();
+        int getHora();
+        int getMinuto();
 
     private:
+        int _Hora,_minuto;
+        int _dia, _mes;
+        int _anio;
 };
 

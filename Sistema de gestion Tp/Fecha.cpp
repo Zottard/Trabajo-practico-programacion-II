@@ -1,11 +1,73 @@
 #include "Fecha.h"
+#include <iostream>
+#include <ctime>
+#include <iomanip>
 
 Fecha::Fecha()
 {
-    //ctor
+    _dia=0
+    _mes=0
+    _anio=0
+    _Hora=0
+    _minuto=0
+}
+void Fecha::fechaActual(){
+time_t timeptr = time(null);
+    tm*tiempo = loocaltime( &timeptr );
+
+    _dia = tiempo->tm_mday;
+    _mes = tiempo->tm_mon+1;
+    _anio = tiempo->tm_year + 1900;
+    _hora = tiempo->tm_hour;
+    _minuto = tiempo->tm_min;
+
 }
 
-Fecha::~Fecha()
-{
-    //dtor
+void Fecha::setDia(int dia){
+    _dia= dia;
+}
+void Fecha::setmes(int mes){
+    _mes= mes;
+}
+
+void Fecha::setAnio(int anio){
+    _anio= anio;
+}
+
+void Fecha::setHora(int Hora){
+    _Hora= Hora;
+}
+void Fecha::setMinuto(int minuto){
+    _minuto= minuto;
+}
+
+int get Fecha::getDia(){
+ return _dia;
+}
+
+int get Fecha::getMes(){
+ return _mes;
+}
+
+int get Fecha::getAnio(){
+ return _anio;
+}
+
+int get Fecha::getHora(){
+ return _Hora;
+}
+
+int get Fecha::getMinuto(){
+ return _minuto;
+}
+
+void Fecha::mostrarFecha(){
+cout << setw(2) << setfill('0') << _dia << "/"
+     << setw(2) << setfill('0') << _mes << "/"
+     <<_anio;
+}
+
+void Fecha::mostrarHora(){
+    cout << setw(2) << setfill('0') << _Hora << ":"
+         << setw(2) << setfill('0') << _minuto;
 }
