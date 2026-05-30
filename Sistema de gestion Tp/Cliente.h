@@ -1,12 +1,24 @@
 #pragma once
+#include "Persona.h"
 
-
-class Cliente
+class Cliente : public Persona
 {
-    public:
-        Cliente();
 
-    private:
+private:
+    char _email[50];
+    char _telefono[15];
+
+public:
+
+    Cliente();
+
+    void cargarCliente();
+    void mostrarCliente();
+
+    void setEmail(const char *);
+    const char* getEmail();
+
+    void setTelefono(const char *);
+    const char* getTelefono();
+
 };
-
-
