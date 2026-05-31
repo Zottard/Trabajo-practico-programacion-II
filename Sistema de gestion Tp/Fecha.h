@@ -21,7 +21,7 @@ class Fecha
         int getMinuto();
 
     private:
-        int _Hora,_minuto;
+        int _hora,_minuto;
         int _dia, _mes;
         int _anio;
 };

@@ -2,18 +2,19 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
+using namespace std;
 
 Fecha::Fecha()
 {
-    _dia=0
-    _mes=0
-    _anio=0
-    _Hora=0
-    _minuto=0
+    _dia=0;
+    _mes=0;
+    _anio=0;
+    _hora=0;
+    _minuto=0;
 }
 void Fecha::fechaActual(){
-time_t timeptr = time(null);
-    tm*tiempo = loocaltime( &timeptr );
+time_t timeptr = time(nullptr);
+    tm*tiempo = localtime( &timeptr );
 
     _dia = tiempo->tm_mday;
     _mes = tiempo->tm_mon+1;
@@ -34,30 +35,30 @@ void Fecha::setAnio(int anio){
     _anio= anio;
 }
 
-void Fecha::setHora(int Hora){
-    _Hora= Hora;
+void Fecha::setHora(int hora){
+    _hora= hora;
 }
 void Fecha::setMinuto(int minuto){
     _minuto= minuto;
 }
 
-int get Fecha::getDia(){
+int Fecha::getDia(){
  return _dia;
 }
 
-int get Fecha::getMes(){
+int Fecha::getMes(){
  return _mes;
 }
 
-int get Fecha::getAnio(){
+int Fecha::getAnio(){
  return _anio;
 }
 
-int get Fecha::getHora(){
- return _Hora;
+int Fecha::getHora(){
+ return _hora;
 }
 
-int get Fecha::getMinuto(){
+int Fecha::getMinuto(){
  return _minuto;
 }
 
@@ -68,6 +69,6 @@ cout << setw(2) << setfill('0') << _dia << "/"
 }
 
 void Fecha::mostrarHora(){
-    cout << setw(2) << setfill('0') << _Hora << ":"
+    cout << setw(2) << setfill('0') << _hora << ":"
          << setw(2) << setfill('0') << _minuto;
 }

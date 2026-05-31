@@ -41,7 +41,7 @@ void Cliente::cargarCliente()
 
 void Cliente::mostrarCliente()
 {
-    if(getactivo()){
+    if(getActivo()){
         mostrarPersona();
 
         cout<<"EMAIL: "<<_email<<endl;

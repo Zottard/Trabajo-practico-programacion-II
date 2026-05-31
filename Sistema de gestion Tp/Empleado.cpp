@@ -49,10 +49,9 @@ void Empleado::cargarEmpleado()
 void Empleado::mostrarEmpleado()
 {
 
-    if(getactivo()){
+    if(getActivo()){
 
         mostrarPersona();
-
 
         cout<<"LEGAJO: "<<_legajo<<endl;
 

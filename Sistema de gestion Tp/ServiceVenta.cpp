@@ -2,10 +2,6 @@
 
 ServiceVenta::ServiceVenta()
 {
-    //ctor
-}
 
-ServiceVenta::~ServiceVenta()
-{
-    //dtor
+
 }
