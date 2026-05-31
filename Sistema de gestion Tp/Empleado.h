@@ -1,12 +1,23 @@
 #pragma once
-
-class Empleado
+#include "Persona.h"
+class Empleado : public Persona
 {
-    public:
-        Empleado();
 
+private:
+    int _legajo;
+    bool _esAdmin;
 
-    private:
+public:
+
+    Empleado();
+
+    void cargarEmpleado();
+    void mostrarEmpleado();
+
+    void setlegajo(int);
+    int getlegajo();
+
+    void setesAdmin(bool);
+    bool getesAdmin();
+
 };
-
-
