@@ -12,9 +12,6 @@ class Persona
     public:
         Persona();
 
-        void cargarPersona();
-        void mostrarPersona();
-
         void setIdPersona(int);
         int getIdPersona();
 

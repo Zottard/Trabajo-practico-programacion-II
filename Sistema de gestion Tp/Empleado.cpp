@@ -26,39 +26,3 @@ bool Empleado::getesAdmin()
     return _esAdmin;
 }
 
-void Empleado::cargarEmpleado()
-{
-
-    cargarPersona();
-
-    cout<<"Ingrese legajo: "<<endl;
-    cin>>_legajo;
-
-
-    int opcionAdmin;
-    cout <<"Es administrador? (1 - Si / 0 - No): "<<endl;
-    cin >> opcionAdmin;
-
-    if(opcionAdmin == 1){
-        _esAdmin = true;
-    } else {
-        _esAdmin = false;
-    }
-}
-
-void Empleado::mostrarEmpleado()
-{
-
-    if(getActivo()){
-
-        mostrarPersona();
-
-        cout<<"LEGAJO: "<<_legajo<<endl;
-
-        if(_esAdmin){
-            cout<<"PERMISOS: Administrador"<<endl;
-        } else {
-            cout<<"PERMISOS: Empleado estandar"<<endl;
-        }
-    }
-}

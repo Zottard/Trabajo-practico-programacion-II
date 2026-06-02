@@ -1,7 +1,6 @@
-#include <iostream>
+
 #include <cstring>
 #include "Cliente.h"
-using namespace std;
 
 Cliente:: Cliente(){
 
@@ -29,22 +28,3 @@ const char* Cliente::getTelefono()
     return _telefono;
 }
 
-void Cliente::cargarCliente()
-{
-    cargarPersona();
-
-    cout<<"Ingrese email: "<<endl;
-    cin>>_email;
-    cout <<"Ingrese telefono: "<<endl;
-    cin >> _telefono;
-}
-
-void Cliente::mostrarCliente()
-{
-    if(getActivo()){
-        mostrarPersona();
-
-        cout<<"EMAIL: "<<_email<<endl;
-        cout<<"TELEFONO: "<<_telefono<<endl;
-    }
-}

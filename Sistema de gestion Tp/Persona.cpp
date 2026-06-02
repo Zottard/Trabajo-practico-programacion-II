@@ -1,7 +1,7 @@
-#include <iostream>
+
 #include <cstring>
 #include "Persona.h"
-using namespace std;
+
 
 Persona:: Persona(){
 
@@ -60,23 +60,3 @@ bool Persona::getActivo()
     return _activo;
 }
 
-void Persona::cargarPersona()
-{
-    cout<<"Ingrese nombre: "<<endl;
-    cin>>_nombre;
-    cout <<"Ingrese apellido: "<<endl;
-    cin >> _apellido;
-    cout << "Ingrese DNI: "<<endl;
-    cin >> _dni;
-
-    _activo = true;
-}
-
-void Persona::mostrarPersona()
-{
-    if(_activo){
-        cout<<"NOMBRE: "<<_nombre<<endl;
-        cout<<"APELLIDO: "<<_apellido<<endl;
-        cout<<"DNI: "<<_dni<<endl;
-    }
-}

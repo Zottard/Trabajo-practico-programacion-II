@@ -12,8 +12,6 @@ public:
 
     Cliente();
 
-    void cargarCliente();
-    void mostrarCliente();
 
     void setEmail(const char *);
     const char* getEmail();

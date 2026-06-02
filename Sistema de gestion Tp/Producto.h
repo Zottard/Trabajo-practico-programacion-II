@@ -16,8 +16,6 @@ public:
 
     Producto();
 
-    void cargarProducto();
-    void mostrarProducto();
 
     void setIdProducto(int);
     int getIdProducto();

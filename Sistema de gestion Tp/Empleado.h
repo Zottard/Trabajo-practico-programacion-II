@@ -11,9 +11,6 @@ public:
 
     Empleado();
 
-    void cargarEmpleado();
-    void mostrarEmpleado();
-
     void setlegajo(int);
     int getlegajo();
 

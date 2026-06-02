@@ -16,14 +16,12 @@ public:
 
     Horarios();
 
-    void cargarHorario();
-    void mostrarHorario();
 
     void setIdTurno(int);
     int getIdTurno();
 
     void setIdEmpleado(int);
-    int getidEmpleado();
+    int getIdEmpleado();
 
     void setFecha(Fecha);
     Fecha getFecha();

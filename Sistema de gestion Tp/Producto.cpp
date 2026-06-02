@@ -1,8 +1,6 @@
 
-#include <iostream>
 #include <cstring>
 #include "Producto.h"
-using namespace std;
 
 Producto:: Producto(){
 
@@ -78,39 +76,4 @@ void Producto::setActivo(bool activo)
 bool Producto::getActivo()
 {
     return _activo;
-}
-
-void Producto::cargarProducto()
-{
-    cout<<"Ingrese ID del producto: "<<endl;
-    cin>>_idProducto;
-
-    cout<<"Ingrese nombre del articulo: "<<endl;
-    cin>>_nombre;
-
-    cout <<"Ingrese codigo identificador (SKU): "<<endl;
-    cin >> _codigo;
-
-    cout << "Ingrese numero de categoria: "<<endl;
-    cin >> _categoria;
-
-    cout << "Ingrese precio de venta: $"<<endl;
-    cin >> _precio;
-
-    cout << "Ingrese stock inicial disponible: "<<endl;
-    cin >> _stock;
-
-    _activo = true;
-}
-
-void Producto::mostrarProducto()
-{
-    if(_activo){
-        cout<<"ID PRODUCTO : "<<_idProducto<<endl;
-        cout<<"NOMBRE      : "<<_nombre<<endl;
-        cout<<"CODIGO      : "<<_codigo<<endl;
-        cout<<"CATEGORIA   : "<<_categoria<<endl;
-        cout<<"PRECIO      : $"<<_precio<<endl;
-        cout<<"STOCK       : "<<_stock<<" unidades"<<endl;
-    }
 }

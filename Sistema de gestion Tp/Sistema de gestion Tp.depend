@@ -7,19 +7,19 @@
 
 1780002399 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\manager.h
 
-1780180238 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.cpp
+1780372145 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.cpp
 	<iostream>
 	<cstring>
 	"Persona.h"
 
-1780179939 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.h
+1780372204 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.h
 
-1780265631 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.cpp
+1780372152 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.cpp
 	<iostream>
 	<cstring>
 	"Producto.h"
 
-1780266060 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.h
+1780372204 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.h
 
 1780002403 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.cpp
 	"ServiceCliente.h"
@@ -27,7 +27,7 @@
 1780004208 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.h
 	"Cliente.h"
 
-1780182648 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.h
+1780372168 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.h
 	"Persona.h"
 
 1780002404 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.cpp
@@ -36,7 +36,7 @@
 1780004221 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.h
 	"Empleado.h"
 
-1780265417 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.h
+1780372178 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.h
 	"Persona.h"
 
 1780000565 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicehorarios.cpp
@@ -50,19 +50,20 @@
 1780004231 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.h
 	"Producto.h"
 
-1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
+1780372165 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
 	<iostream>
 	<cstring>
 	"Cliente.h"
 
-1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
+1780372174 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
 	<iostream>
 	"Empleado.h"
 
 1780002407 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.cpp
 	"Venta.h"
 
-1780004234 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.h
+1780372315 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.h
+	"Fecha.h"
 
 1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.cpp
 	"ServiceVenta.h"
@@ -73,11 +74,18 @@
 	"Empleado.h"
 	"Cliente.h"
 
-1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.cpp
+1780371091 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.cpp
 	"Fecha.h"
 	<iostream>
 	<ctime>
 	<iomanip>
 
-1780266028 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.h
+1780370950 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.h
+
+1780372236 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.cpp
+	<iostream>
+	"Horarios.h"
+
+1780372251 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.h
+	"Fecha.h"
 
