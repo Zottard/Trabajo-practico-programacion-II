@@ -19,7 +19,7 @@
 	<cstring>
 	"Producto.h"
 
-1780265614 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.h
+1780266060 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.h
 
 1780002403 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.cpp
 	"ServiceCliente.h"
@@ -50,12 +50,12 @@
 1780004231 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.h
 	"Producto.h"
 
-1780265731 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
+1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
 	<iostream>
 	<cstring>
 	"Cliente.h"
 
-1780265732 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
+1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
 	<iostream>
 	"Empleado.h"
 
@@ -64,7 +64,7 @@
 
 1780004234 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.h
 
-1780265830 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.cpp
+1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.cpp
 	"ServiceVenta.h"
 
 1780004275 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.h
@@ -72,4 +72,12 @@
 	"Producto.h"
 	"Empleado.h"
 	"Cliente.h"
+
+1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.cpp
+	"Fecha.h"
+	<iostream>
+	<ctime>
+	<iomanip>
+
+1780266028 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.h
 
