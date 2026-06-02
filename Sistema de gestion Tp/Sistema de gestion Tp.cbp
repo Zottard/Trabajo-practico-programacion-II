@@ -58,6 +58,8 @@
 		<Unit filename="ServiceProducto.h" />
 		<Unit filename="ServiceVenta.cpp" />
 		<Unit filename="ServiceVenta.h" />
+		<Unit filename="Validaciones.cpp" />
+		<Unit filename="Validaciones.h" />
 		<Unit filename="Venta.cpp" />
 		<Unit filename="Venta.h" />
 		<Unit filename="main.cpp" />
