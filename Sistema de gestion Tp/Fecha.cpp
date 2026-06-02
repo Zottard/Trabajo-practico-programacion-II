@@ -27,7 +27,7 @@ time_t timeptr = time(nullptr);
 void Fecha::setDia(int dia){
     _dia= dia;
 }
-void Fecha::setmes(int mes){
+void Fecha::setMes(int mes){
     _mes= mes;
 }
 
@@ -71,4 +71,38 @@ cout << setw(2) << setfill('0') << _dia << "/"
 void Fecha::mostrarHora(){
     cout << setw(2) << setfill('0') << _hora << ":"
          << setw(2) << setfill('0') << _minuto;
+}
+
+void Fecha::cargarFecha()
+{
+    int opcion;
+    cout << "Desea utilizar la fecha y hora actual del sistema? (1 - Si / 0 - Carga manual): " << endl;
+    cin >> opcion;
+
+    if (opcion == 1)
+    {
+        fechaActual();
+        cout << ">> Fecha registrada automaticamente: ";
+        mostrarFecha();
+        cout << " ";
+        mostrarHora();
+        cout << endl;
+    }
+    else
+    {
+        cout << "Ingrese dia (1-31): " << endl;
+        cin >> _dia;
+
+        cout << "Ingrese mes (1-12): " << endl;
+        cin >> _mes;
+
+        cout << "Ingrese anio: " << endl;
+        cin >> _anio;
+
+        cout << "Ingrese hora (0-23): " << endl;
+        cin >> _hora;
+
+        cout << "Ingrese minuto (0-59): " << endl;
+        cin >> _minuto;
+    }
 }

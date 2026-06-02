@@ -19,25 +19,25 @@ public:
     void cargarProducto();
     void mostrarProducto();
 
-    void setidProducto(int);
-    int getidProducto();
+    void setIdProducto(int);
+    int getIdProducto();
 
-    void setnombre(const char *);
-    const char* getnombre();
+    void setNombre(const char *);
+    const char* getNombre();
 
-    void setcodigo(const char *);
-    const char* getcodigo();
+    void setCodigo(const char *);
+    const char* getCodigo();
 
-    void setcategoria(int);
-    int getcategoria();
+    void setCategoria(int);
+    int getCategoria();
 
-    void setprecio(float);
-    float getprecio();
+    void setPrecio(float);
+    float getPrecio();
 
-    void setstock(int);
-    int getstock();
+    void setStock(int);
+    int getStock();
 
-    void setactivo(bool);
-    bool getactivo();
+    void setActivo(bool);
+    bool getActivo();
 
 };

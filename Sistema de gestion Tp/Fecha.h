@@ -7,9 +7,10 @@ class Fecha
 
         void mostrarFecha();
         void mostrarHora();
+        void cargarFecha();
 
         void setAnio(int);
-        void setmes(int);
+        void setMes(int);
         void setDia(int);
         void setHora(int);
         void setMinuto(int);

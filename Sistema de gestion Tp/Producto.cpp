@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cstring>
 #include "Producto.h"
@@ -7,74 +8,74 @@ Producto:: Producto(){
 
 }
 
-void Producto::setidProducto(int idProducto)
+void Producto::setIdProducto(int idProducto)
 {
     _idProducto=idProducto;
 }
 
-int Producto::getidProducto()
+int Producto::getIdProducto()
 {
     return _idProducto;
 }
 
-void Producto::setnombre(const char *nombre)
+void Producto::setNombre(const char *nombre)
 {
     strcpy(_nombre,nombre);
     _nombre[49]='\0';
 }
 
-const char* Producto::getnombre()
+const char* Producto::getNombre()
 {
     return _nombre;
 }
 
-void Producto::setcodigo(const char *codigo)
+void Producto::setCodigo(const char *codigo)
 {
     strcpy(_codigo,codigo);
     _codigo[29]='\0';
 }
 
-const char* Producto::getcodigo()
+const char* Producto::getCodigo()
 {
     return _codigo;
 }
 
-void Producto::setcategoria(int categoria)
+void Producto::setCategoria(int categoria)
 {
     _categoria=categoria;
 }
 
-int Producto::getcategoria()
+int Producto::getCategoria()
 {
     return _categoria;
 }
 
-void Producto::setprecio(float precio)
+void Producto::setPrecio(float precio)
 {
     _precio=precio;
 }
 
-float Producto::getprecio()
+float Producto::getPrecio()
 {
     return _precio;
 }
 
-void Producto::setstock(int stock)
+void Producto::setStock(int stock)
 {
     _stock=stock;
 }
 
-int Producto::getstock()
+int Producto::getStock()
 {
     return _stock;
 }
 
-void Producto::setactivo(bool activo)
+void Producto::setActivo(bool activo)
 {
     _activo=activo;
 }
 
-bool Producto::getactivo()
+bool Producto::getActivo()
 {
     return _activo;
 }
