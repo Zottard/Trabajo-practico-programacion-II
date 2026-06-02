@@ -1,8 +1,73 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
 #include "ServiceCliente.h"
+
+using namespace std;
 
 ServiceCliente::ServiceCliente()
 {
-
 }
 
+bool ServiceCliente::guardarCliente(Cliente cli)
+{
+    FILE* archivoCliente = fopen("Clientes.dat", "ab");
+    if(archivoCliente != nullptr)
+    {
+        fwrite(&cli, sizeof(Cliente), 1, archivoCliente);
+        fclose(archivoCliente);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
+Cliente ServiceCliente::leerCliente(int pos)
+{
+    Cliente registro;
+    FILE* archivoCliente = fopen("Clientes.dat", "rb");
+
+    if(archivoCliente != nullptr)
+    {
+        fseek(archivoCliente, sizeof(Cliente) * pos, SEEK_SET);
+        fread(&registro, sizeof(Cliente), 1, archivoCliente);
+        fclose(archivoCliente);
+    }
+
+    return registro;
+}
+
+int ServiceCliente::getCantidadRegistros()
+{
+    FILE* archivoCliente = fopen("Clientes.dat", "rb");
+
+    if(archivoCliente != nullptr)
+    {
+        fseek(archivoCliente, 0, SEEK_END);
+        int bytes = ftell(archivoCliente);
+        fclose(archivoCliente);
+
+        return bytes / sizeof(Cliente);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int ServiceCliente::buscarPorDNI(const char* dni)
+{
+    int cantidad = getCantidadRegistros();
+    for (int i = 0; i < cantidad; i++)
+    {
+        Cliente cli = leerCliente(i);
+
+        if (strcmp(cli.getdniPersona(), dni) == 0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}

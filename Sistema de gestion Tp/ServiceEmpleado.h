@@ -6,6 +6,8 @@ class ServiceEmpleado
     public:
         ServiceEmpleado();
 
-    private:
+        bool guardarEmpleado(Empleado emp);
+        Empleado leerEmpleado(int pos);
+        int buscarPorLegajo(int legajo);
+        int getCantidadRegistros();
 };
-
