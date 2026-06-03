@@ -9,7 +9,11 @@ class ServiceVenta
     public:
         ServiceVenta();
 
+        bool guardarVenta(Venta ven);
+        Venta leerVenta(int pos);
+        int buscarPorIdVenta(int idVenta);
+        int getCantidadRegistros();
 
     private:
+        char _nombreArchivo[30];
 };
-

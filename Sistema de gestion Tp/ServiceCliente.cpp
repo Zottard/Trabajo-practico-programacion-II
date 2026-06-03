@@ -7,11 +7,12 @@ using namespace std;
 
 ServiceCliente::ServiceCliente()
 {
+    strcpy(_nombreArchivo, "Clientes.dat");
 }
 
 bool ServiceCliente::guardarCliente(Cliente cli)
 {
-    FILE* archivoCliente = fopen("Clientes.dat", "ab");
+    FILE* archivoCliente = fopen(_nombreArchivo, "ab");
     if(archivoCliente != nullptr)
     {
         fwrite(&cli, sizeof(Cliente), 1, archivoCliente);
@@ -27,7 +28,7 @@ bool ServiceCliente::guardarCliente(Cliente cli)
 Cliente ServiceCliente::leerCliente(int pos)
 {
     Cliente registro;
-    FILE* archivoCliente = fopen("Clientes.dat", "rb");
+    FILE* archivoCliente = fopen(_nombreArchivo, "rb");
 
     if(archivoCliente != nullptr)
     {
@@ -41,7 +42,7 @@ Cliente ServiceCliente::leerCliente(int pos)
 
 int ServiceCliente::getCantidadRegistros()
 {
-    FILE* archivoCliente = fopen("Clientes.dat", "rb");
+    FILE* archivoCliente = fopen(_nombreArchivo, "rb");
 
     if(archivoCliente != nullptr)
     {
@@ -64,7 +65,7 @@ int ServiceCliente::buscarPorDNI(const char* dni)
     {
         Cliente cli = leerCliente(i);
 
-        if (strcmp(cli.getdniPersona(), dni) == 0)
+        if (strcmp(cli.getDniPersona(), dni) == 0)
         {
             return i;
         }

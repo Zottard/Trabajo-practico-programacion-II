@@ -1,16 +1,16 @@
-#ifndef SERVICEHORARIOS_H
-#define SERVICEHORARIOS_H
-
+#pragma once
+#include "Horarios.h"
 
 class ServiceHorarios
 {
     public:
         ServiceHorarios();
-        virtual ~ServiceHorarios();
 
-    protected:
+        bool guardarHorario(Horarios hor);
+        Horarios leerHorario(int pos);
+        int buscarPorIdTurno(int idTurno);
+        int getCantidadRegistros();
 
     private:
+        char _nombreArchivo[30];
 };
-
-#endif // SERVICEHORARIOS_H

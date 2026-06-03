@@ -10,4 +10,7 @@ class ServiceProducto
         Producto leerProducto(int pos);
         int buscarPorCodigo(const char* codigo);
         int getCantidadRegistros();
+
+    private:
+        char _nombreArchivo[30];
 };

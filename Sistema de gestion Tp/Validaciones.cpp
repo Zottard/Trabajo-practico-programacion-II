@@ -2,7 +2,7 @@
 #include <cstring>
 #include <cctype>
 #include <limits>
-#include "MisFunciones.h"
+#include "Validaciones.h"
 
 #include "Cliente.h"
 #include "ServiceCliente.h"
@@ -10,7 +10,7 @@
 #include "ServiceEmpleado.h"
 #include "Producto.h"
 #include "ServiceProducto.h"
-
+#include "ServiceVenta.h"
 using namespace std;
 
 void resultadoAccion(bool respuesta)
@@ -47,7 +47,7 @@ int generacionId(int tipo){
         if(cantidad == 0) return 1;
 
         Cliente cli = servicli.leerCliente(cantidad - 1);
-        return cli.getidPersona() + 1;
+        return cli.getIdPersona() + 1;
     }
     else if (tipo==2) /// Empleado
     {
@@ -57,7 +57,7 @@ int generacionId(int tipo){
         if(cantidad == 0) return 1;
 
         Empleado emple = serviEmple.leerEmpleado(cantidad - 1);
-        return emple.getidPersona() + 1;
+        return emple.getIdPersona() + 1;
     }
     else if(tipo==3) /// Producto
     {
@@ -67,7 +67,7 @@ int generacionId(int tipo){
         if(cantidad == 0) return 1;
 
         Producto prod = serviprod.leerProducto(cantidad - 1);
-        return prod.getidProducto() + 1;
+        return prod.getIdProducto() + 1;
     }
     else if(tipo==4)
     {
@@ -75,7 +75,7 @@ int generacionId(int tipo){
         cantidad = serviVen.getCantidadRegistros();
         if(cantidad == 0) return 1;
         Venta ven = serviVen.leerVenta(cantidad - 1);
-        return ven.GetIdVenta() + 1;
+        return ven.getIdVenta() + 1;
     }
 
 

@@ -1,16 +1,18 @@
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 #include "ServiceEmpleado.h"
 
 using namespace std;
 
 ServiceEmpleado::ServiceEmpleado()
 {
+    strcpy(_nombreArchivo, "Empleados.dat");
 }
 
 bool ServiceEmpleado::guardarEmpleado(Empleado emp)
 {
-    FILE* archivoEmpleado = fopen("Empleados.dat", "ab");
+    FILE* archivoEmpleado = fopen(_nombreArchivo, "ab");
     if(archivoEmpleado != nullptr)
     {
         fwrite(&emp, sizeof(Empleado), 1, archivoEmpleado);
@@ -26,7 +28,7 @@ bool ServiceEmpleado::guardarEmpleado(Empleado emp)
 Empleado ServiceEmpleado::leerEmpleado(int pos)
 {
     Empleado registro;
-    FILE* archivoEmpleado = fopen("Empleados.dat", "rb");
+    FILE* archivoEmpleado = fopen(_nombreArchivo, "rb");
 
     if(archivoEmpleado != nullptr)
     {
@@ -40,7 +42,7 @@ Empleado ServiceEmpleado::leerEmpleado(int pos)
 
 int ServiceEmpleado::getCantidadRegistros()
 {
-    FILE* archivoEmpleado = fopen("Empleados.dat", "rb");
+    FILE* archivoEmpleado = fopen(_nombreArchivo, "rb");
 
     if(archivoEmpleado != nullptr)
     {

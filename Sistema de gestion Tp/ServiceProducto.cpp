@@ -7,11 +7,12 @@ using namespace std;
 
 ServiceProducto::ServiceProducto()
 {
+    strcpy(_nombreArchivo, "Productos.dat");
 }
 
 bool ServiceProducto::guardarProducto(Producto prod)
 {
-    FILE* archivoProducto = fopen("Productos.dat", "ab");
+    FILE* archivoProducto = fopen(_nombreArchivo, "ab");
     if(archivoProducto != nullptr)
     {
         fwrite(&prod, sizeof(Producto), 1, archivoProducto);
@@ -27,7 +28,7 @@ bool ServiceProducto::guardarProducto(Producto prod)
 Producto ServiceProducto::leerProducto(int pos)
 {
     Producto registro;
-    FILE* archivoProducto = fopen("Productos.dat", "rb");
+    FILE* archivoProducto = fopen(_nombreArchivo, "rb");
 
     if(archivoProducto != nullptr)
     {
@@ -41,7 +42,7 @@ Producto ServiceProducto::leerProducto(int pos)
 
 int ServiceProducto::getCantidadRegistros()
 {
-    FILE* archivoProducto = fopen("Productos.dat", "rb");
+    FILE* archivoProducto = fopen(_nombreArchivo, "rb");
 
     if(archivoProducto != nullptr)
     {
@@ -64,7 +65,7 @@ int ServiceProducto::buscarPorCodigo(const char* codigo)
     {
         Producto prod = leerProducto(i);
 
-        if (strcmp(prod.getcodigo(), codigo) == 0)
+        if (strcmp(prod.getCodigo(), codigo) == 0)
         {
             return i;
         }

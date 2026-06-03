@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1780000565 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\main.cpp
+1780372672 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\main.cpp
 	<iostream>
 
 1780002399 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\manager.cpp
@@ -7,68 +7,80 @@
 
 1780002399 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\manager.h
 
-1780372145 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.cpp
-	<iostream>
+1780372503 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.cpp
 	<cstring>
 	"Persona.h"
 
 1780372204 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\persona.h
 
-1780372152 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.cpp
-	<iostream>
+1780372513 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.cpp
 	<cstring>
 	"Producto.h"
 
 1780372204 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\producto.h
 
-1780002403 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.cpp
+1780440946 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
 	"ServiceCliente.h"
 
-1780004208 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.h
+1780440731 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicecliente.h
 	"Cliente.h"
 
 1780372168 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.h
 	"Persona.h"
 
-1780002404 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.cpp
+1780440946 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
 	"ServiceEmpleado.h"
 
-1780004221 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.h
+1780440759 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceempleado.h
 	"Empleado.h"
 
 1780372178 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.h
 	"Persona.h"
 
-1780000565 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicehorarios.cpp
+1780440946 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicehorarios.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
 	"ServiceHorarios.h"
 
-1780000565 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicehorarios.h
+1780440680 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\servicehorarios.h
+	"Horarios.h"
 
-1780002368 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.cpp
+1780440945 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
 	"ServiceProducto.h"
 
-1780004231 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.h
+1780440880 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceproducto.h
 	"Producto.h"
 
-1780372165 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
-	<iostream>
+1780372518 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\cliente.cpp
 	<cstring>
 	"Cliente.h"
 
-1780372174 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
-	<iostream>
+1780372670 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\empleado.cpp
 	"Empleado.h"
 
-1780002407 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.cpp
+1780372541 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.cpp
 	"Venta.h"
 
 1780372315 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\venta.h
 	"Fecha.h"
 
-1780266028 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.cpp
+1780441156 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
 	"ServiceVenta.h"
 
-1780004275 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.h
+1780441056 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\serviceventa.h
 	"Venta.h"
 	"Producto.h"
 	"Empleado.h"
@@ -82,8 +94,7 @@
 
 1780370950 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\fecha.h
 
-1780372236 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.cpp
-	<iostream>
+1780372524 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.cpp
 	"Horarios.h"
 
 1780372251 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.h
