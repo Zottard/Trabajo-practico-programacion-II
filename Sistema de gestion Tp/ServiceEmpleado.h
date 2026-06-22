@@ -10,6 +10,8 @@ class ServiceEmpleado
         Empleado leerEmpleado(int pos);
         int buscarPorLegajo(int legajo);
         int getCantidadRegistros();
+        int getCantidadActivos();
+        Empleado* listarEmpleados();
 
     private:
         char _nombreArchivo[30];

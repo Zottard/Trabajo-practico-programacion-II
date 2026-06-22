@@ -72,3 +72,39 @@ int ServiceEmpleado::buscarPorLegajo(int legajo)
     }
     return -1;
 }
+int ServiceEmpleado::getCantidadActivos()
+{
+    int total = getCantidadRegistros();
+    int activos = 0;
+
+    for(int i = 0; i < total; i++)
+    {
+        Empleado emp = leerEmpleado(i);
+        if(emp.getActivo() == true)
+        {
+            activos++;
+        }
+    }
+    return activos;
+}
+
+Empleado* ServiceEmpleado::listarEmpleados()
+{
+    int cant = getCantidadActivos();
+    if(cant == 0) return nullptr;
+
+    Empleado* vec = new Empleado[cant];
+    int total = getCantidadRegistros();
+    int indice = 0;
+
+    for(int i = 0; i < total; i++)
+    {
+        Empleado emp = leerEmpleado(i);
+        if(emp.getActivo() == true)
+        {
+            vec[indice] = emp;
+            indice++;
+        }
+    }
+    return vec;
+}

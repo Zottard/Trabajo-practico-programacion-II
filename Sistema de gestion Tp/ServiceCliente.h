@@ -10,6 +10,8 @@ class ServiceCliente
         Cliente leerCliente(int pos);
         int buscarPorDNI(const char* dni);
         int getCantidadRegistros();
+        int getCantidadActivos();
+        Cliente* listarClientes();
 
     private:
         char _nombreArchivo[30];

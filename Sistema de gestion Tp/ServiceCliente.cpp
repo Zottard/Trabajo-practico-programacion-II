@@ -72,3 +72,40 @@ int ServiceCliente::buscarPorDNI(const char* dni)
     }
     return -1;
 }
+
+int ServiceCliente::getCantidadActivos()
+{
+    int total = getCantidadRegistros();
+    int activos = 0;
+
+    for(int i = 0; i < total; i++)
+    {
+        Cliente cli = leerCliente(i);
+        if(cli.getActivo() == true)
+        {
+            activos++;
+        }
+    }
+    return activos;
+}
+
+Cliente* ServiceCliente::listarClientes()
+{
+    int cant = getCantidadActivos();
+    if(cant == 0) return nullptr;
+
+    Cliente* vec = new Cliente[cant];
+    int total = getCantidadRegistros();
+    int indice = 0;
+
+    for(int i = 0; i < total; i++)
+    {
+        Cliente cli = leerCliente(i);
+        if(cli.getActivo() == true)
+        {
+            vec[indice] = cli;
+            indice++;
+        }
+    }
+    return vec;
+}
