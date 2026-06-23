@@ -7,6 +7,7 @@ class ServiceProducto
         ServiceProducto();
 
         bool guardarProducto(Producto prod);
+        bool modificarProducto(int pos, Producto prod);
         Producto leerProducto(int pos);
         int buscarPorCodigo(const char* codigo);
         int getCantidadRegistros();

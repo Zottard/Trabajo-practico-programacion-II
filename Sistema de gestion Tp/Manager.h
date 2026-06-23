@@ -19,16 +19,19 @@ class Manager
         void cargarProducto();
         void listarProductos();
         void eliminarProducto();
+        void modificarProducto();
 
         //  EMPLEADOS
         void cargarEmpleado();
         void listarEmpleados();
         void eliminarEmpleado();
+        void modificarEmpleado();
 
         //  CLIENTES
         void cargarCliente();
         void listarClientes();
         void eliminarCliente();
+        void modificarCliente();
 
         //  HORARIOS
         void registrarHorario();

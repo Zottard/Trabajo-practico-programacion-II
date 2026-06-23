@@ -35,6 +35,27 @@ void limpiarBuffer()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+/// pregunta si el usuario quiere reintentar el dato o volver al menu anterior
+bool reintentarOVolver()
+{
+    int opcion;
+
+    do
+    {
+        cout << " [ 1 ] Reintentar  /  [ 0 ] Volver al menu anterior: ";
+        cin >> opcion;
+
+        if(cin.fail())
+        {
+            cin.clear();
+            limpiarBuffer();
+            opcion = -1;
+        }
+    } while(opcion != 0 && opcion != 1);
+
+    return opcion == 1;
+}
+
 /// Genera ID a partir del ultimo del archivo
 int generacionId(int tipo){
     int cantidad;

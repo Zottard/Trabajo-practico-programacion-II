@@ -22,6 +22,19 @@ bool ServiceProducto::guardarProducto(Producto prod)
     return false;
 }
 
+bool ServiceProducto::modificarProducto(int pos, Producto prod)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
+        fwrite(&prod, sizeof(Producto), 1, archivo);
+        fclose(archivo);
+        return true;
+    }
+    return false;
+}
+
 Producto ServiceProducto::leerProducto(int pos)
 {
     Producto registro;

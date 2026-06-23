@@ -3,6 +3,7 @@
 
 void resultadoAccion(bool respuesta);
 void limpiarBuffer();
+bool reintentarOVolver();
 
 int generacionId(int tipo);
 int generacionLegajo();

@@ -7,6 +7,7 @@ class ServiceEmpleado
         ServiceEmpleado();
 
         bool guardarEmpleado(Empleado emp);
+        bool modificarEmpleado(int pos, Empleado emp);
         Empleado leerEmpleado(int pos);
         int buscarPorLegajo(int legajo);
         bool bajaLogica(int pos);

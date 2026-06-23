@@ -25,6 +25,19 @@ bool ServiceEmpleado::guardarEmpleado(Empleado emp)
     }
 }
 
+bool ServiceEmpleado::modificarEmpleado(int pos, Empleado emp)
+{
+    FILE* archivoEmpleado = fopen(_nombreArchivo, "rb+");
+    if(archivoEmpleado != nullptr)
+    {
+        fseek(archivoEmpleado, sizeof(Empleado) * pos, SEEK_SET);
+        fwrite(&emp, sizeof(Empleado), 1, archivoEmpleado);
+        fclose(archivoEmpleado);
+        return true;
+    }
+    return false;
+}
+
 Empleado ServiceEmpleado::leerEmpleado(int pos)
 {
     Empleado registro;

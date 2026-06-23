@@ -25,6 +25,19 @@ bool ServiceCliente::guardarCliente(Cliente cli)
     }
 }
 
+bool ServiceCliente::modificarCliente(int pos, Cliente cli)
+{
+    FILE* archivoCliente = fopen(_nombreArchivo, "rb+");
+    if(archivoCliente != nullptr)
+    {
+        fseek(archivoCliente, sizeof(Cliente) * pos, SEEK_SET);
+        fwrite(&cli, sizeof(Cliente), 1, archivoCliente);
+        fclose(archivoCliente);
+        return true;
+    }
+    return false;
+}
+
 Cliente ServiceCliente::leerCliente(int pos)
 {
     Cliente registro;

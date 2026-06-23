@@ -36,7 +36,7 @@ int main()
         switch (opPrincipal)
         {
             case 1: // =========================================================
-            {       // MÓDULO VENTAS
+            {       // Mï¿½DULO VENTAS
                 int opVentas;
                 do
                 {
@@ -75,7 +75,7 @@ int main()
             }
 
             case 2: // =========================================================
-            {       // MÓDULO PRODUCTOS
+            {       // Mï¿½DULO PRODUCTOS
                 int opProd;
                 do
                 {
@@ -83,6 +83,7 @@ int main()
                     cout << " [ 1 ] . Cargar Nuevo Producto" << endl;
                     cout << " [ 2 ] . Listar Catalogo de Productos (Por Precio)" << endl;
                     cout << " [ 3 ] . Eliminar Producto (Baja Logica)" << endl;
+                    cout << " [ 4 ] . Modificar Producto" << endl;
                     cout << "---------------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -106,6 +107,9 @@ int main()
                         case 3:
                             manager.eliminarProducto();
                             break;
+                        case 4:
+                            manager.modificarProducto();
+                            break;
                         case 0:
                             break;
                         default:
@@ -118,7 +122,7 @@ int main()
             }
 
             case 3: // =========================================================
-            {       // MÓDULO CLIENTES
+            {       // Mï¿½DULO CLIENTES
                 int opCli;
                 do
                 {
@@ -126,6 +130,7 @@ int main()
                     cout << " [ 1 ] . Cargar Nuevo Cliente" << endl;
                     cout << " [ 2 ] . Listar Clientes Activos" << endl;
                     cout << " [ 3 ] . Eliminar Cliente" << endl;
+                    cout << " [ 4 ] . Modificar Cliente" << endl;
                     cout << "----------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -149,6 +154,9 @@ int main()
                         case 3:
                             manager.eliminarCliente();
                             break;
+                        case 4:
+                            manager.modificarCliente();
+                            break;
                         case 0:
                             break;
                         default:
@@ -161,7 +169,7 @@ int main()
             }
 
             case 4: // =========================================================
-            {       // MÓDULO EMPLEADOS
+            {       // Mï¿½DULO EMPLEADOS
                 int opEmp;
                 do
                 {
@@ -169,6 +177,7 @@ int main()
                     cout << " [ 1 ] . Cargar Nuevo Empleado" << endl;
                     cout << " [ 2 ] . Listar Personal de la Tienda" << endl;
                     cout << " [ 3 ] . Eliminar Empleado" << endl;
+                    cout << " [ 4 ] . Modificar Empleado" << endl;
                     cout << "-----------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -192,6 +201,9 @@ int main()
                         case 3:
                             manager.eliminarEmpleado();
                             break;
+                        case 4:
+                            manager.modificarEmpleado();
+                            break;
                         case 0:
                             break;
                         default:
@@ -204,7 +216,7 @@ int main()
             }
 
             case 5: // =========================================================
-            {       // MÓDULO HORARIOS
+            {       // Mï¿½DULO HORARIOS
                 int opHor;
                 do
                 {
@@ -243,7 +255,7 @@ int main()
             }
 
             case 6: // =========================================================
-            {       // MÓDULO REPORTES
+            {       // Mï¿½DULO REPORTES
                 int opRep;
                 do
                 {

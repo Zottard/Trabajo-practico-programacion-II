@@ -7,6 +7,7 @@ class ServiceCliente
         ServiceCliente();
 
         bool guardarCliente(Cliente cli);
+        bool modificarCliente(int pos, Cliente cli);
         Cliente leerCliente(int pos);
         int buscarPorDNI(const char* dni);
         bool bajaLogica(int pos);
