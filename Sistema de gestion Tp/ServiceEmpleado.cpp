@@ -65,7 +65,7 @@ int ServiceEmpleado::buscarPorLegajo(int legajo)
     {
         Empleado emp = leerEmpleado(i);
 
-        if (emp.getlegajo() == legajo)
+        if (emp.getLegajo() == legajo)
         {
             return i;
         }

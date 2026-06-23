@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 #include "Manager.h"
 using namespace std;
 
@@ -20,7 +21,7 @@ void Manager::registrarVenta()
     do
     {
         cout << " Ingrese DNI del Cliente: ";
-        cin >> dniCliente;
+        cin >> setw(20) >> dniCliente;
         posCliente = _srvCliente.buscarPorDNI(dniCliente);
         if(posCliente == -1)
         {
@@ -49,7 +50,7 @@ void Manager::registrarVenta()
     do
     {
         cout << " Ingrese Codigo del Producto: ";
-        cin >> codigoProd;
+        cin >> setw(30) >> codigoProd;
         posProd = _srvProducto.buscarPorCodigo(codigoProd);
         if(posProd == -1) cout << "   [!] Error: El articulo no existe o fue dado de baja." << endl;
     } while(posProd == -1);
@@ -108,7 +109,7 @@ void Manager::registrarVenta()
     if(_srvVenta.guardarVenta(nueva))
     {
         _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
-        cout << "\n[OK] ¡Venta N° " << idVenta << " confirmada! Monto Total: $" << montoTotal << endl;
+        cout << "\n[OK] ï¿½Venta Nï¿½ " << idVenta << " confirmada! Monto Total: $" << montoTotal << endl;
     }
     else
     {
@@ -176,7 +177,7 @@ void Manager::cargarEmpleado()
     do
     {
         cout << " Ingrese DNI: ";
-        cin >> dni;
+        cin >> setw(20) >> dni;
         if(!validarNumeros(dni))
         {
             cout << "   [!] Error: El DNI solo debe contener numeros." << endl;
@@ -204,9 +205,9 @@ void Manager::cargarEmpleado()
     emp.setIdPersona(nuevoId);
     emp.setNombre(nombre);
     emp.setApellido(apellido);
-    emp.setDni(dni);
+    emp.setDniPersona(dni);
     emp.setLegajo(nuevoLegajo);
-    emp.setAdmin(tipoAdmin == 1);
+    emp.setesAdmin(tipoAdmin == 1);
     emp.setActivo(true);
 
     bool ok = _srvEmpleado.guardarEmpleado(emp);
@@ -231,8 +232,8 @@ void Manager::listarEmpleados()
         for(int i = 0; i < cant; i++)
         {
             cout << " " << lista[i].getLegajo() << "\t"
-                 << lista[i].getDni() << "\t"
-                 << (lista[i].getAdmin() ? "SI" : "NO") << "\t"
+                 << lista[i].getDniPersona() << "\t"
+                 << (lista[i].getesAdmin() ? "SI" : "NO") << "\t"
                  << lista[i].getApellido() << ", " << lista[i].getNombre() << endl;
         }
         cout << "---------------------------------------------------------------------" << endl;
@@ -299,7 +300,7 @@ void Manager::cargarCliente()
     do
     {
         cout << " Ingrese DNI: ";
-        cin >> dni;
+        cin >> setw(20) >> dni;
         if(!validarNumeros(dni) || _srvCliente.buscarPorDNI(dni) != -1)
         {
             cout << "   [!] Error: DNI invalido o ya registrado." << endl;
@@ -308,8 +309,13 @@ void Manager::cargarCliente()
         else entradaValida = true;
     } while(!entradaValida);
 
-    cout << " Ingrese Correo Electronico (Email): ";
-    cin >> email;
+    do
+    {
+        cout << " Ingrese Correo Electronico (Email): ";
+        cin >> setw(50) >> email;
+        entradaValida = validarEmail(email);
+        if(!entradaValida) cout << "   [!] Error: Email invalido." << endl;
+    } while(!entradaValida);
 
     Cliente cli;
     int nuevoId = generacionId(1);
@@ -317,7 +323,7 @@ void Manager::cargarCliente()
     cli.setIdPersona(nuevoId);
     cli.setNombre(nombre);
     cli.setApellido(apellido);
-    cli.setDni(dni);
+    cli.setDniPersona(dni);
     cli.setEmail(email);
     cli.setActivo(true);
 
@@ -342,7 +348,7 @@ void Manager::listarClientes()
         cout << "=====================================================================" << endl;
         for(int i = 0; i < cant; i++)
         {
-            cout << " " << lista[i].getDni() << "\t"
+            cout << " " << lista[i].getDniPersona() << "\t"
                  << lista[i].getEmail() << "\t\t"
                  << lista[i].getApellido() << ", " << lista[i].getNombre() << endl;
         }
@@ -356,7 +362,7 @@ void Manager::eliminarCliente()
     char dniBuscado[20];
     cout << "\n>> BAJA DE CLIENTE <<" << endl;
     cout << " Ingrese el DNI del cliente a eliminar: ";
-    cin >> dniBuscado;
+    cin >> setw(20) >> dniBuscado;
 
     int pos = _srvCliente.buscarPorDNI(dniBuscado);
     if(pos == -1)
@@ -422,8 +428,8 @@ void Manager::registrarHorario()
     {
         cout << " Hora de SALIDA (Hora Minuto): ";
         cin >> hSal >> mSal;
-        valida = validarHora(hSal, mSal);
-        if(!valida) cout << "   [!] Formato de hora invalido." << endl;
+        valida = validarHora(hSal, mSal) && (hSal * 60 + mSal) > (hEnt * 60 + mEnt);
+        if(!valida) cout << "   [!] La hora de salida debe ser posterior a la de entrada." << endl;
     } while(!valida);
 
     Horarios hor;
@@ -436,7 +442,7 @@ void Manager::registrarHorario()
     hor.setMinutoEntrada(mEnt);
     hor.setHoraSalida(hSal);
     hor.setMinutoSalida(mSal);
-    hor.setPresente(true);
+    hor.setAsistencia(true);
     hor.setActivo(true);
 
     bool ok = _srvHorarios.guardarHorario(hor);
@@ -459,21 +465,23 @@ void Manager::consultarHorasTrabajadas()
 
     Empleado emp = _srvEmpleado.leerEmpleado(pos);
     int totalRegistros = _srvHorarios.getCantidadRegistros();
-    int horasAcumuladas = 0;
+    int minutosAcumulados = 0;
 
     for(int i = 0; i < totalRegistros; i++)
     {
         Horarios h = _srvHorarios.leerHorario(i);
         if(h.getActivo() == true && h.getIdEmpleado() == emp.getIdPersona())
         {
-
-            int duracion = h.getHoraSalida() - h.getHoraEntrada();
-            if(duracion > 0) horasAcumuladas += duracion;
+            int entrada = h.getHoraEntrada() * 60 + h.getMinutoEntrada();
+            int salida = h.getHoraSalida() * 60 + h.getMinutoSalida();
+            int duracion = salida - entrada;
+            if(duracion > 0) minutosAcumulados += duracion;
         }
     }
 
     cout << "\n El empleado " << emp.getApellido() << " ha trabajado un total de "
-         << horasAcumuladas << " horas registradas." << endl;
+         << (minutosAcumulados / 60) << " horas y " << (minutosAcumulados % 60)
+         << " minutos registrados." << endl;
 }
 
 
@@ -696,4 +704,137 @@ void Manager::reporteCantidadPorCategoria()
 
     cout << "\n >> Total de unidades comercializadas de este rubro: " << unidades << " un." << endl;
     cout << "=================================================" << endl;
+}
+
+                //PRODUCTOS
+
+void Manager::cargarProducto()
+{
+    cout << "\n>> ALTA DE NUEVO PRODUCTO <<" << endl;
+    char nombre[50];
+    char codigo[30];
+    int categoria, stock;
+    float precio;
+    bool entradaValida;
+
+    limpiarBuffer();
+
+    do
+    {
+        cout << " Ingrese Nombre del Producto: ";
+        cin.getline(nombre, 50);
+        entradaValida = validarTexto(nombre) && strlen(nombre) > 0;
+        if(!entradaValida) cout << "   [!] Error: Texto invalido." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese Codigo del Producto: ";
+        cin >> setw(30) >> codigo;
+        entradaValida = strlen(codigo) > 0 && _srvProducto.buscarPorCodigo(codigo) == -1;
+        if(!entradaValida) cout << "   [!] Error: Codigo invalido o ya registrado." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Seleccione Categoria (1: Calzado | 2: Indumentaria | 3: Accesorios): ";
+        cin >> categoria;
+        if(cin.fail() || categoria < 1 || categoria > 3)
+        {
+            cout << "   [!] Error: Categoria invalida." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese Precio: ";
+        cin >> precio;
+        if(cin.fail() || precio <= 0)
+        {
+            cout << "   [!] Error: El precio debe ser mayor a 0." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese Stock inicial: ";
+        cin >> stock;
+        if(cin.fail() || stock < 0)
+        {
+            cout << "   [!] Error: El stock no puede ser negativo." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    Producto prod;
+    int nuevoId = generacionId(3);
+
+    prod.setIdProducto(nuevoId);
+    prod.setNombre(nombre);
+    prod.setCodigo(codigo);
+    prod.setCategoria(categoria);
+    prod.setPrecio(precio);
+    prod.setStock(stock);
+    prod.setActivo(true);
+
+    bool ok = _srvProducto.guardarProducto(prod);
+    resultadoAccion(ok);
+}
+
+void Manager::listarProductos()
+{
+    int cant = _srvProducto.getCantidadActivos();
+    if(cant == 0)
+    {
+        cout << "\n[!] No hay productos cargados en el catalogo." << endl;
+        return;
+    }
+
+    Producto* lista = _srvProducto.listarPorPrecio();
+    if(lista != nullptr)
+    {
+        cout << "\n=====================================================================" << endl;
+        cout << " CODIGO\t\tNOMBRE\t\tPRECIO\t\tSTOCK" << endl;
+        cout << "=====================================================================" << endl;
+        for(int i = 0; i < cant; i++)
+        {
+            cout << " " << lista[i].getCodigo() << "\t\t"
+                 << lista[i].getNombre() << "\t\t$"
+                 << lista[i].getPrecio() << "\t\t"
+                 << lista[i].getStock() << endl;
+        }
+        cout << "---------------------------------------------------------------------" << endl;
+        delete[] lista;
+    }
+}
+
+void Manager::eliminarProducto()
+{
+    char codigoBuscado[30];
+    cout << "\n>> BAJA DE PRODUCTO <<" << endl;
+    cout << " Ingrese el Codigo del producto a eliminar: ";
+    cin >> setw(30) >> codigoBuscado;
+
+    int pos = _srvProducto.buscarPorCodigo(codigoBuscado);
+    if(pos == -1)
+    {
+        cout << "\n[!] Producto no encontrado." << endl;
+        return;
+    }
+
+    Producto prod = _srvProducto.leerProducto(pos);
+    cout << "\n Producto encontrado: " << prod.getNombre() << endl;
+    cout << " Confirmar baja? (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvProducto.bajaLogica(pos);
+        resultadoAccion(ok);
+    }
 }

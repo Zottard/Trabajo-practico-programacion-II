@@ -92,7 +92,7 @@ int generacionLegajo(){
     }
 
     Empleado emple = serviEmple.leerEmpleado(cantidad - 1);
-    return emple.getlegajo() + 1;
+    return emple.getLegajo() + 1;
 }
 
 /// validador de numeros
@@ -122,6 +122,31 @@ bool validarTexto(const char* texto) {
     return true;
 }
 
+/// validar email
+bool validarEmail(const char* email) {
+    int len = strlen(email);
+    if (len == 0) return false;
+
+    int posArroba = -1;
+    int posPunto = -1;
+
+    for (int i = 0; i < len; i++) {
+        if (email[i] == ' ') return false;
+        if (email[i] == '@') {
+            if (posArroba != -1) return false;
+            posArroba = i;
+        }
+        else if (email[i] == '.' && posArroba != -1) {
+            posPunto = i;
+        }
+    }
+
+    if (posArroba <= 0) return false;
+    if (posPunto == -1 || posPunto <= posArroba + 1 || posPunto >= len - 1) return false;
+
+    return true;
+}
+
 /// validar fecha
 bool validaFecha(int dia, int mes, int anio ){
     if(anio < 1900 || anio > 2100) return false;
@@ -136,7 +161,10 @@ bool validaFecha(int dia, int mes, int anio ){
             diaMes = 30;
         break;
         case 2:
-            diaMes = 28;
+            if((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0)
+                diaMes = 29;
+            else
+                diaMes = 28;
         break;
         default:
            return false;

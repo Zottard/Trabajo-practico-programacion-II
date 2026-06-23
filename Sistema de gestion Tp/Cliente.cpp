@@ -8,7 +8,7 @@ Cliente:: Cliente(){
 
 void Cliente::setEmail(const char *email)
 {
-    strcpy(_email,email);
+    strncpy(_email,email,49);
     _email[49]='\0';
 }
 
@@ -19,7 +19,7 @@ const char* Cliente::getEmail()
 
 void Cliente::setTelefono(const char *telefono)
 {
-    strcpy(_telefono,telefono);
+    strncpy(_telefono,telefono,14);
     _telefono[14]='\0';
 }
 

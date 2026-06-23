@@ -18,7 +18,7 @@ int Producto::getIdProducto()
 
 void Producto::setNombre(const char *nombre)
 {
-    strcpy(_nombre,nombre);
+    strncpy(_nombre,nombre,49);
     _nombre[49]='\0';
 }
 
@@ -29,7 +29,7 @@ const char* Producto::getNombre()
 
 void Producto::setCodigo(const char *codigo)
 {
-    strcpy(_codigo,codigo);
+    strncpy(_codigo,codigo,29);
     _codigo[29]='\0';
 }
 

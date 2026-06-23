@@ -19,7 +19,7 @@ int Persona::getIdPersona()
 
 void Persona::setDniPersona(const char *dniPersona)
 {
-    strcpy(_dni,dniPersona);
+    strncpy(_dni,dniPersona,9);
     _dni[9]='\0';
 }
 
@@ -30,7 +30,7 @@ const char* Persona::getDniPersona()
 
 void Persona::setNombre(const char *nombre)
 {
-    strcpy(_nombre,nombre);
+    strncpy(_nombre,nombre,49);
     _nombre[49]='\0';
 }
 
@@ -41,7 +41,7 @@ const char* Persona::getNombre()
 
 void Persona::setApellido(const char *apellido)
 {
-    strcpy(_apellido,apellido);
+    strncpy(_apellido,apellido,49);
     _apellido[49]='\0';
 }
 

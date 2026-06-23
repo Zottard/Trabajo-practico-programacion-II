@@ -46,6 +46,16 @@ int Horarios::getHoraEntrada()
     return _horaEntrada;
 }
 
+void Horarios::setMinutoEntrada(int minutoEntrada)
+{
+    _minutoEntrada=minutoEntrada;
+}
+
+int Horarios::getMinutoEntrada()
+{
+    return _minutoEntrada;
+}
+
 void Horarios::setHoraSalida(int horaSalida)
 {
     _horaSalida=horaSalida;
@@ -56,6 +66,16 @@ int Horarios::getHoraSalida()
     return _horaSalida;
 }
 
+void Horarios::setMinutoSalida(int minutoSalida)
+{
+    _minutoSalida=minutoSalida;
+}
+
+int Horarios::getMinutoSalida()
+{
+    return _minutoSalida;
+}
+
 void Horarios::setAsistencia(bool asistencia)
 {
     _asistencia=asistencia;
@@ -64,6 +84,16 @@ void Horarios::setAsistencia(bool asistencia)
 bool Horarios::getAsistencia()
 {
     return _asistencia;
+}
+
+void Horarios::setActivo(bool activo)
+{
+    _activo=activo;
+}
+
+bool Horarios::getActivo()
+{
+    return _activo;
 }
 
 
