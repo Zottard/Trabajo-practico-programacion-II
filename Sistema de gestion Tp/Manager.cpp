@@ -12,7 +12,7 @@ Manager::Manager()
 
 void Manager::registrarVenta()
 {
-    cout << "\n>> REGISTRAR NUEVA VENTA <<" << endl;
+    cout << "\nREGISTRAR NUEVA VENTA" << endl;
     char dniCliente[20];
     char codigoProd[30];
     int legajoEmp, cantidad, dia, mes, anio;
@@ -28,7 +28,7 @@ void Manager::registrarVenta()
         posCliente = _srvCliente.buscarPorDNI(dniCliente);
         if(posCliente != -1) break;
 
-        cout << "   [!] Error: Cliente no encontrado en la base de datos." << endl;
+        cout << "   Error: Cliente no encontrado en la base de datos." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -45,7 +45,7 @@ void Manager::registrarVenta()
 
         if(posEmp != -1) break;
 
-        cout << "   [!] Error: Vendedor no encontrado." << endl;
+        cout << "   Error: Vendedor no encontrado." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -60,7 +60,7 @@ void Manager::registrarVenta()
         posProd = _srvProducto.buscarPorCodigo(codigoProd);
         if(posProd != -1) break;
 
-        cout << "   [!] Error: El articulo no existe o fue dado de baja." << endl;
+        cout << "   Error: El articulo no existe o fue dado de baja." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -72,7 +72,7 @@ void Manager::registrarVenta()
         cin >> cantidad;
         if(!cin.fail() && cantidad > 0 && cantidad <= prod.getStock()) break;
 
-        cout << "   [!] Error: Cantidad no valida o stock insuficiente." << endl;
+        cout << "   Error: Cantidad no valida o stock insuficiente." << endl;
         cin.clear();
         limpiarBuffer();
         if(!reintentarOVolver()) return;
@@ -85,7 +85,7 @@ void Manager::registrarVenta()
         cin >> dia >> mes >> anio;
         if(!cin.fail() && validaFecha(dia, mes, anio)) break;
 
-        cout << "   [!] Error: Fecha ingresada no es valida." << endl;
+        cout << "   Error: Fecha ingresada no es valida." << endl;
         cin.clear();
         limpiarBuffer();
         if(!reintentarOVolver()) return;
@@ -114,11 +114,11 @@ void Manager::registrarVenta()
     if(_srvVenta.guardarVenta(nueva))
     {
         _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
-        cout << "\n[OK] �Venta N� " << idVenta << " confirmada! Monto Total: $" << montoTotal << endl;
+        cout << "\nVenta N " << idVenta << " confirmada. Monto Total: $" << montoTotal << endl;
     }
     else
     {
-        cout << "\n[!] Error al intentar registrar la venta." << endl;
+        cout << "\nError al intentar registrar la venta." << endl;
     }
 }
 
@@ -127,7 +127,7 @@ void Manager::consultarVentas()
     int total = _srvVenta.getCantidadRegistros();
     if(total == 0)
     {
-        cout << "\n[!] No hay transacciones registradas en el archivo." << endl;
+        cout << "\nNo hay transacciones registradas en el archivo." << endl;
         return;
     }
 
@@ -154,7 +154,7 @@ void Manager::consultarVentas()
 
 void Manager::cargarEmpleado()
 {
-    cout << "\n>> ALTA DE NUEVO EMPLEADO <<" << endl;
+    cout << "\nALTA DE NUEVO EMPLEADO" << endl;
     char nombre[50];
     char apellido[50];
     char dni[20];
@@ -168,7 +168,7 @@ void Manager::cargarEmpleado()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -178,7 +178,7 @@ void Manager::cargarEmpleado()
         cin.getline(apellido, 50);
         if(validarTexto(apellido) && strlen(apellido) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -188,17 +188,17 @@ void Manager::cargarEmpleado()
         cin >> setw(20) >> dni;
         if(validarNumeros(dni)) break;
 
-        cout << "   [!] Error: El DNI solo debe contener numeros." << endl;
+        cout << "   Error: El DNI solo debe contener numeros." << endl;
         if(!reintentarOVolver()) return;
     }
 
     for(;;)
     {
-        cout << " Es Administrador? (1 = SI / 0 = NO): ";
+        cout << " Es Administrador (1 = SI / 0 = NO): ";
         cin >> tipoAdmin;
         if(!cin.fail() && (tipoAdmin == 0 || tipoAdmin == 1)) break;
 
-        cout << "   [!] Error: Seleccione 1 o 0." << endl;
+        cout << "   Error: Seleccione 1 o 0." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -224,7 +224,7 @@ void Manager::listarEmpleados()
     int cant = _srvEmpleado.getCantidadActivos();
     if(cant == 0)
     {
-        cout << "\n[!] No hay empleados activos en el sistema." << endl;
+        cout << "\nNo hay empleados activos en el sistema." << endl;
         return;
     }
 
@@ -242,27 +242,27 @@ void Manager::listarEmpleados()
                  << lista[i].getApellido() << ", " << lista[i].getNombre() << endl;
         }
         cout << "---------------------------------------------------------------------" << endl;
-        delete[] lista; //
+        delete[] lista;
     }
 }
 
 void Manager::eliminarEmpleado()
 {
     int legajoBuscado;
-    cout << "\n>> BAJA DE EMPLEADO <<" << endl;
+    cout << "\nBAJA DE EMPLEADO" << endl;
     cout << " Ingrese el LEGAJO del empleado a despedir/dar de baja: ";
     cin >> legajoBuscado;
 
     int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] No se encontro ningun empleado activo con ese legajo." << endl;
+        cout << "\nNo se encontro ningun empleado activo con ese legajo." << endl;
         return;
     }
 
     Empleado emp = _srvEmpleado.leerEmpleado(pos);
     cout << "\n Personal encontrado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
-    cout << " Confirmar baja? (1 = SI / 0 = NO): ";
+    cout << " Confirmar baja (1 = SI / 0 = NO): ";
     int conf;
     cin >> conf;
     if(conf == 1)
@@ -275,14 +275,14 @@ void Manager::eliminarEmpleado()
 void Manager::modificarEmpleado()
 {
     int legajoBuscado;
-    cout << "\n>> MODIFICAR EMPLEADO <<" << endl;
+    cout << "\nMODIFICAR EMPLEADO" << endl;
     cout << " Ingrese el LEGAJO del empleado a modificar: ";
     cin >> legajoBuscado;
 
     int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] No se encontro ningun empleado activo con ese legajo." << endl;
+        cout << "\nNo se encontro ningun empleado activo con ese legajo." << endl;
         return;
     }
 
@@ -302,7 +302,7 @@ void Manager::modificarEmpleado()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -312,17 +312,17 @@ void Manager::modificarEmpleado()
         cin.getline(apellido, 50);
         if(validarTexto(apellido) && strlen(apellido) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
     for(;;)
     {
-        cout << " Es Administrador? (1 = SI / 0 = NO): ";
+        cout << " Es Administrador (1 = SI / 0 = NO): ";
         cin >> tipoAdmin;
         if(!cin.fail() && (tipoAdmin == 0 || tipoAdmin == 1)) break;
 
-        cout << "   [!] Error: Seleccione 1 o 0." << endl;
+        cout << "   Error: Seleccione 1 o 0." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -340,7 +340,7 @@ void Manager::modificarEmpleado()
 
 void Manager::cargarCliente()
 {
-    cout << "\n>> ALTA DE NUEVO CLIENTE <<" << endl;
+    cout << "\nALTA DE NUEVO CLIENTE" << endl;
     char nombre[50];
     char apellido[50];
     char dni[20];
@@ -354,7 +354,7 @@ void Manager::cargarCliente()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -364,7 +364,7 @@ void Manager::cargarCliente()
         cin.getline(apellido, 50);
         if(validarTexto(apellido) && strlen(apellido) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -374,7 +374,7 @@ void Manager::cargarCliente()
         cin >> setw(20) >> dni;
         if(validarNumeros(dni) && _srvCliente.buscarPorDNI(dni) == -1) break;
 
-        cout << "   [!] Error: DNI invalido o ya registrado." << endl;
+        cout << "   Error: DNI invalido o ya registrado." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -384,7 +384,7 @@ void Manager::cargarCliente()
         cin >> setw(50) >> email;
         if(validarEmail(email)) break;
 
-        cout << "   [!] Error: Email invalido." << endl;
+        cout << "   Error: Email invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -407,7 +407,7 @@ void Manager::listarClientes()
     int cant = _srvCliente.getCantidadActivos();
     if(cant == 0)
     {
-        cout << "\n[!] No hay clientes registrados." << endl;
+        cout << "\nNo hay clientes registrados." << endl;
         return;
     }
 
@@ -431,20 +431,20 @@ void Manager::listarClientes()
 void Manager::eliminarCliente()
 {
     char dniBuscado[20];
-    cout << "\n>> BAJA DE CLIENTE <<" << endl;
+    cout << "\nBAJA DE CLIENTE" << endl;
     cout << " Ingrese el DNI del cliente a eliminar: ";
     cin >> setw(20) >> dniBuscado;
 
     int pos = _srvCliente.buscarPorDNI(dniBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] Cliente no encontrado." << endl;
+        cout << "\nCliente no encontrado." << endl;
         return;
     }
 
     Cliente cli = _srvCliente.leerCliente(pos);
     cout << "\n Cliente: " << cli.getApellido() << ", " << cli.getNombre() << endl;
-    cout << " Confirmar eliminacion? (1 = SI / 0 = NO): ";
+    cout << " Confirmar eliminacion (1 = SI / 0 = NO): ";
     int conf;
     cin >> conf;
     if(conf == 1)
@@ -457,14 +457,14 @@ void Manager::eliminarCliente()
 void Manager::modificarCliente()
 {
     char dniBuscado[20];
-    cout << "\n>> MODIFICAR CLIENTE <<" << endl;
+    cout << "\nMODIFICAR CLIENTE" << endl;
     cout << " Ingrese el DNI del cliente a modificar: ";
     cin >> setw(20) >> dniBuscado;
 
     int pos = _srvCliente.buscarPorDNI(dniBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] Cliente no encontrado." << endl;
+        cout << "\nCliente no encontrado." << endl;
         return;
     }
 
@@ -484,7 +484,7 @@ void Manager::modificarCliente()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -494,7 +494,7 @@ void Manager::modificarCliente()
         cin.getline(apellido, 50);
         if(validarTexto(apellido) && strlen(apellido) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -504,7 +504,7 @@ void Manager::modificarCliente()
         cin >> setw(50) >> email;
         if(validarEmail(email)) break;
 
-        cout << "   [!] Error: Email invalido." << endl;
+        cout << "   Error: Email invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -520,7 +520,7 @@ void Manager::modificarCliente()
 
 void Manager::registrarHorario()
 {
-    cout << "\n>> REGISTRAR FICHADA DE TURNO <<" << endl;
+    cout << "\nREGISTRAR FICHADA DE TURNO" << endl;
     int legajo, dia, mes, anio, hEnt, mEnt, hSal, mSal;
     bool valida;
 
@@ -531,7 +531,7 @@ void Manager::registrarHorario()
         cout << " Ingrese Legajo del Empleado: ";
         cin >> legajo;
         posEmp = _srvEmpleado.buscarPorLegajo(legajo);
-        if(posEmp == -1) cout << "   [!] Empleado inexistente." << endl;
+        if(posEmp == -1) cout << "   Empleado inexistente." << endl;
     } while(posEmp == -1);
 
     Empleado emp = _srvEmpleado.leerEmpleado(posEmp);
@@ -542,7 +542,7 @@ void Manager::registrarHorario()
         cout << " Fecha del turno (Dia Mes Anio): ";
         cin >> dia >> mes >> anio;
         valida = validaFecha(dia, mes, anio);
-        if(!valida) cout << "   [!] Fecha incorrecta." << endl;
+        if(!valida) cout << "   Fecha incorrecta." << endl;
     } while(!valida);
 
     Fecha fTurno;
@@ -554,7 +554,7 @@ void Manager::registrarHorario()
         cout << " Hora de ENTRADA (Hora Minuto): ";
         cin >> hEnt >> mEnt;
         valida = validarHora(hEnt, mEnt);
-        if(!valida) cout << "   [!] Formato de hora invalido." << endl;
+        if(!valida) cout << "   Formato de hora invalido." << endl;
     } while(!valida);
 
     do
@@ -562,7 +562,7 @@ void Manager::registrarHorario()
         cout << " Hora de SALIDA (Hora Minuto): ";
         cin >> hSal >> mSal;
         valida = validarHora(hSal, mSal) && (hSal * 60 + mSal) > (hEnt * 60 + mEnt);
-        if(!valida) cout << "   [!] La hora de salida debe ser posterior a la de entrada." << endl;
+        if(!valida) cout << "   La hora de salida debe ser posterior a la de entrada." << endl;
     } while(!valida);
 
     Horarios hor;
@@ -585,14 +585,14 @@ void Manager::registrarHorario()
 void Manager::consultarHorasTrabajadas()
 {
     int legajoBuscado;
-    cout << "\n>> CONSULTA DE HORAS POR EMPLEADO <<" << endl;
+    cout << "\nCONSULTA DE HORAS POR EMPLEADO" << endl;
     cout << " Ingrese el Legajo: ";
     cin >> legajoBuscado;
 
     int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] Empleado no encontrado." << endl;
+        cout << "\nEmpleado no encontrado." << endl;
         return;
     }
 
@@ -631,7 +631,7 @@ void Manager::reporteRecaudacionTotal()
 
     float total = _srvVenta.recaudacionTotal();
 
-    cout << " >> El total neto facturado por la tienda es: $" << total << endl;
+    cout << " El total neto facturado por la tienda es: $" << total << endl;
     cout << "=================================================" << endl;
 }
 
@@ -653,7 +653,7 @@ void Manager::reporteRecaudacionAnual()
 
         if (cin.fail() || anio < 2000 || anio > 2100)
         {
-            cout << "   [!] Error: Ingrese un anio valido." << endl;
+            cout << "   Error: Ingrese un anio valido." << endl;
             cin.clear();
             limpiarBuffer();
             entradaValida = false;
@@ -666,7 +666,7 @@ void Manager::reporteRecaudacionAnual()
 
     float total = _srvVenta.recaudacionAnual(anio);
 
-    cout << "\n >> Recaudacion total del anio " << anio << ": $" << total << endl;
+    cout << "\n Recaudacion total del anio " << anio << ": $" << total << endl;
     cout << "=================================================" << endl;
 }
 
@@ -687,7 +687,7 @@ void Manager::reporteRecaudacionMensual()
         cin >> anio;
         if (cin.fail() || anio < 2000 || anio > 2100)
         {
-            cout << "   [!] Error: Anio invalido." << endl;
+            cout << "   Error: Anio invalido." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
             continue;
         }
@@ -696,7 +696,7 @@ void Manager::reporteRecaudacionMensual()
         cin >> mes;
         if (cin.fail() || mes < 1 || mes > 12)
         {
-            cout << "   [!] Error: El mes debe estar entre 1 y 12." << endl;
+            cout << "   Error: El mes debe estar entre 1 y 12." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
         }
         else
@@ -707,7 +707,7 @@ void Manager::reporteRecaudacionMensual()
 
     float total = _srvVenta.recaudacionMensual(mes, anio);
 
-    cout << "\n >> Recaudacion del periodo " << mes << "/" << anio << ": $" << total << endl;
+    cout << "\n Recaudacion del periodo " << mes << "/" << anio << ": $" << total << endl;
     cout << "=================================================" << endl;
 }
 
@@ -734,7 +734,7 @@ void Manager::reporteRecaudacionPorEmpleado()
         posEmp = _srvEmpleado.buscarPorLegajo(legajo);
         if (posEmp == -1)
         {
-            cout << "   [!] Error: No existe un empleado activo con ese legajo." << endl;
+            cout << "   Error: No existe un empleado activo con ese legajo." << endl;
         }
     } while (posEmp == -1);
 
@@ -747,7 +747,7 @@ void Manager::reporteRecaudacionPorEmpleado()
         cin >> dIni >> mIni >> aIni;
         if (cin.fail() || !validaFecha(dIni, mIni, aIni))
         {
-            cout << "   [!] Error: Fecha de inicio invalida." << endl;
+            cout << "   Error: Fecha de inicio invalida." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
             continue;
         }
@@ -756,7 +756,7 @@ void Manager::reporteRecaudacionPorEmpleado()
         cin >> dFin >> mFin >> aFin;
         if (cin.fail() || !validaFecha(dFin, mFin, aFin))
         {
-            cout << "   [!] Error: Fecha de fin invalida." << endl;
+            cout << "   Error: Fecha de fin invalida." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
         }
         else
@@ -771,8 +771,8 @@ void Manager::reporteRecaudacionPorEmpleado()
 
     float total = _srvVenta.recaudacionPorEmpleado(emp.getIdPersona(), fInicio, fFin);
 
-    cout << "\n >> Empleado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
-    cout << " >> Total recaudado en el rango: $" << total << endl;
+    cout << "\n Empleado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << " Total recaudado en el rango: $" << total << endl;
     cout << "=================================================" << endl;
 }
 
@@ -795,7 +795,7 @@ void Manager::reporteCantidadPorCategoria()
         cin >> categoria;
         if (cin.fail() || categoria < 1 || categoria > 3)
         {
-            cout << "   [!] Error: Rubro incorrecto." << endl;
+            cout << "   Error: Rubro incorrecto." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
         }
         else
@@ -811,7 +811,7 @@ void Manager::reporteCantidadPorCategoria()
         cin >> dIni >> mIni >> aIni;
         if (cin.fail() || !validaFecha(dIni, mIni, aIni))
         {
-            cout << "   [!] Error: Fecha de inicio invalida." << endl;
+            cout << "   Error: Fecha de inicio invalida." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
             continue;
         }
@@ -820,7 +820,7 @@ void Manager::reporteCantidadPorCategoria()
         cin >> dFin >> mFin >> aFin;
         if (cin.fail() || !validaFecha(dFin, mFin, aFin))
         {
-            cout << "   [!] Error: Fecha de fin invalida." << endl;
+            cout << "   Error: Fecha de fin invalida." << endl;
             cin.clear(); limpiarBuffer(); entradaValida = false;
         }
         else
@@ -835,7 +835,7 @@ void Manager::reporteCantidadPorCategoria()
 
     int unidades = _srvVenta.cantidadVendidaPorCategoria(categoria, fInicio, fFin);
 
-    cout << "\n >> Total de unidades comercializadas de este rubro: " << unidades << " un." << endl;
+    cout << "\n Total de unidades comercializadas de este rubro: " << unidades << " un." << endl;
     cout << "=================================================" << endl;
 }
 
@@ -843,7 +843,7 @@ void Manager::reporteCantidadPorCategoria()
 
 void Manager::cargarProducto()
 {
-    cout << "\n>> ALTA DE NUEVO PRODUCTO <<" << endl;
+    cout << "\nALTA DE NUEVO PRODUCTO" << endl;
     char nombre[50];
     char codigo[30];
     int categoria, stock;
@@ -857,7 +857,7 @@ void Manager::cargarProducto()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -867,7 +867,7 @@ void Manager::cargarProducto()
         cin >> setw(30) >> codigo;
         if(strlen(codigo) > 0 && _srvProducto.buscarPorCodigo(codigo) == -1) break;
 
-        cout << "   [!] Error: Codigo invalido o ya registrado." << endl;
+        cout << "   Error: Codigo invalido o ya registrado." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -877,7 +877,7 @@ void Manager::cargarProducto()
         cin >> categoria;
         if(!cin.fail() && categoria >= 1 && categoria <= 3) break;
 
-        cout << "   [!] Error: Categoria invalida." << endl;
+        cout << "   Error: Categoria invalida." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -888,7 +888,7 @@ void Manager::cargarProducto()
         cin >> precio;
         if(!cin.fail() && precio > 0) break;
 
-        cout << "   [!] Error: El precio debe ser mayor a 0." << endl;
+        cout << "   Error: El precio debe ser mayor a 0." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -899,7 +899,7 @@ void Manager::cargarProducto()
         cin >> stock;
         if(!cin.fail() && stock >= 0) break;
 
-        cout << "   [!] Error: El stock no puede ser negativo." << endl;
+        cout << "   Error: El stock no puede ser negativo." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -924,7 +924,7 @@ void Manager::listarProductos()
     int cant = _srvProducto.getCantidadActivos();
     if(cant == 0)
     {
-        cout << "\n[!] No hay productos cargados en el catalogo." << endl;
+        cout << "\nNo hay productos cargados en el catalogo." << endl;
         return;
     }
 
@@ -949,20 +949,20 @@ void Manager::listarProductos()
 void Manager::eliminarProducto()
 {
     char codigoBuscado[30];
-    cout << "\n>> BAJA DE PRODUCTO <<" << endl;
+    cout << "\nBAJA DE PRODUCTO" << endl;
     cout << " Ingrese el Codigo del producto a eliminar: ";
     cin >> setw(30) >> codigoBuscado;
 
     int pos = _srvProducto.buscarPorCodigo(codigoBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] Producto no encontrado." << endl;
+        cout << "\nProducto no encontrado." << endl;
         return;
     }
 
     Producto prod = _srvProducto.leerProducto(pos);
     cout << "\n Producto encontrado: " << prod.getNombre() << endl;
-    cout << " Confirmar baja? (1 = SI / 0 = NO): ";
+    cout << " Confirmar baja (1 = SI / 0 = NO): ";
     int conf;
     cin >> conf;
     if(conf == 1)
@@ -975,14 +975,14 @@ void Manager::eliminarProducto()
 void Manager::modificarProducto()
 {
     char codigoBuscado[30];
-    cout << "\n>> MODIFICAR PRODUCTO <<" << endl;
+    cout << "\nMODIFICAR PRODUCTO" << endl;
     cout << " Ingrese el Codigo del producto a modificar: ";
     cin >> setw(30) >> codigoBuscado;
 
     int pos = _srvProducto.buscarPorCodigo(codigoBuscado);
     if(pos == -1)
     {
-        cout << "\n[!] Producto no encontrado." << endl;
+        cout << "\nProducto no encontrado." << endl;
         return;
     }
 
@@ -1002,7 +1002,7 @@ void Manager::modificarProducto()
         cin.getline(nombre, 50);
         if(validarTexto(nombre) && strlen(nombre) > 0) break;
 
-        cout << "   [!] Error: Texto invalido." << endl;
+        cout << "   Error: Texto invalido." << endl;
         if(!reintentarOVolver()) return;
     }
 
@@ -1012,7 +1012,7 @@ void Manager::modificarProducto()
         cin >> categoria;
         if(!cin.fail() && categoria >= 1 && categoria <= 3) break;
 
-        cout << "   [!] Error: Categoria invalida." << endl;
+        cout << "   Error: Categoria invalida." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -1023,7 +1023,7 @@ void Manager::modificarProducto()
         cin >> precio;
         if(!cin.fail() && precio > 0) break;
 
-        cout << "   [!] Error: El precio debe ser mayor a 0." << endl;
+        cout << "   Error: El precio debe ser mayor a 0." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }
@@ -1034,7 +1034,7 @@ void Manager::modificarProducto()
         cin >> stock;
         if(!cin.fail() && stock >= 0) break;
 
-        cout << "   [!] Error: El stock no puede ser negativo." << endl;
+        cout << "   Error: El stock no puede ser negativo." << endl;
         cin.clear(); limpiarBuffer();
         if(!reintentarOVolver()) return;
     }

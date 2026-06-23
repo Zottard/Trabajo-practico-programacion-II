@@ -18,11 +18,11 @@ void resultadoAccion(bool respuesta)
     cout << endl << "----------------------------------------" << endl;
     if(respuesta)
     {
-        cout << " >> EXITOSO: Se guardo correctamente." << endl;
+        cout << " EXITOSO: Se guardo correctamente." << endl;
     }
     else
     {
-        cout << " >> ERROR: No se ha podido guardar, intente nuevamente." << endl;
+        cout << " ERROR: No se ha podido guardar, intente nuevamente." << endl;
     }
     cout << "----------------------------------------" << endl;
     cout << "Presione ENTER para continuar...";
@@ -42,7 +42,7 @@ bool reintentarOVolver()
 
     do
     {
-        cout << " [ 1 ] Reintentar  /  [ 0 ] Volver al menu anterior: ";
+        cout << " 1 Reintentar  /  0 Volver al menu anterior: ";
         cin >> opcion;
 
         if(cin.fail())
