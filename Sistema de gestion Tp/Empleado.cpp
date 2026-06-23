@@ -6,12 +6,12 @@ Empleado:: Empleado(){
 
 }
 
-void Empleado::setlegajo(int legajo)
+void Empleado::setLegajo(int legajo)
 {
     _legajo = legajo;
 }
 
-int Empleado::getlegajo()
+int Empleado::getLegajo()
 {
     return _legajo;
 }

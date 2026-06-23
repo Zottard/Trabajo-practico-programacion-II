@@ -10,6 +10,7 @@ class ServiceProducto
         Producto leerProducto(int pos);
         int buscarPorCodigo(const char* codigo);
         int getCantidadRegistros();
+        bool bajaLogica(int pos);
         bool actualizarStock(int idProducto, int cantidad);
 
         int getCantidadActivos();

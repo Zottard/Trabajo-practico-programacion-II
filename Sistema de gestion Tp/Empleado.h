@@ -11,8 +11,8 @@ public:
 
     Empleado();
 
-    void setlegajo(int);
-    int getlegajo();
+    void setLegajo(int);
+    int getLegajo();
 
     void setesAdmin(bool);
     bool getesAdmin();

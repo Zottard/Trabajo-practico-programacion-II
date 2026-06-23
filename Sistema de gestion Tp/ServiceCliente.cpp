@@ -109,3 +109,28 @@ Cliente* ServiceCliente::listarClientes()
     }
     return vec;
 }
+
+bool ServiceCliente::bajaLogica(int pos)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Cliente cli;
+
+        fseek(archivo, sizeof(Cliente) * pos, SEEK_SET);
+
+        if(fread(&cli, sizeof(Cliente), 1, archivo) == 1)
+        {
+
+            cli.setActivo(false);
+
+
+            fseek(archivo, sizeof(Cliente) * pos, SEEK_SET);
+            fwrite(&cli, sizeof(Cliente), 1, archivo);
+            fclose(archivo);
+            return true;
+        }
+        fclose(archivo);
+    }
+    return false;
+}

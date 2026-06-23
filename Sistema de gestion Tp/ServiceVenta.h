@@ -13,6 +13,7 @@ class ServiceVenta
         int buscarPorIdVenta(int idVenta);
         int getCantidadRegistros();
         float recaudacionTotal();
+        bool anularVenta(int idVenta);
 
 
         int buscarPorFecha(Fecha f, int posInicial);

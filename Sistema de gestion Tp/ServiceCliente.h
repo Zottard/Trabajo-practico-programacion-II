@@ -9,6 +9,7 @@ class ServiceCliente
         bool guardarCliente(Cliente cli);
         Cliente leerCliente(int pos);
         int buscarPorDNI(const char* dni);
+        bool bajaLogica(int pos);
         int getCantidadRegistros();
         int getCantidadActivos();
         Cliente* listarClientes();

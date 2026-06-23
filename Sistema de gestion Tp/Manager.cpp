@@ -1,72 +1,699 @@
 #include <iostream>
+#include <cstring>
 #include "Manager.h"
-
 using namespace std;
 
-Manager::Manager()
-{
-}
+                        // VENTAS
 
-void Manager::menuPrincipal()
+void Manager::registrarVenta()
 {
-    int opcion;
+    cout << "\n>> REGISTRAR NUEVA VENTA <<" << endl;
+    char dniCliente[20];
+    char codigoProd[30];
+    int legajoEmp, cantidad, dia, mes, anio;
+    bool entradaValida;
+
+    limpiarBuffer();
+
+
+    int posCliente = -1;
     do
     {
-        cout << "=======================================" << endl;
-        cout << "       TIENDA DE DEPORTES - MAIN       " << endl;
-        cout << "=======================================" << endl;
-        cout << "[ 1 ] - Modulo de Ventas" << endl;
-        cout << "[ 2 ] - Modulo de Inventario (Stock)" << endl;
-        cout << "[ 3 ] - Modulo de Personal e Ingresos" << endl;
-        cout << "[ 4 ] - Generacion de Informes" << endl;
-        cout << "---------------------------------------" << endl;
-        cout << "[ 0 ] - Salir del Sistema" << endl;
-        cout << "Ingrese una opcion: ";
-        cin >> opcion;
-
-        switch(opcion)
+        cout << " Ingrese DNI del Cliente: ";
+        cin >> dniCliente;
+        posCliente = _srvCliente.buscarPorDNI(dniCliente);
+        if(posCliente == -1)
         {
-            case 1:
-                menuVentas();
-                break;
-            case 2:
-                menuInventario();
-                break;
-            case 3:
-                menuPersonal();
-                break;
-            case 4:
-                generarInformes();
-                break;
-            case 0:
-                cout << "Saliendo del sistema..." << endl;
-                break;
-            default:
-                cout << "Opcion incorrecta. Intente nuevamente." << endl;
-                break;
+            cout << "   [!] Error: Cliente no encontrado en la base de datos." << endl;
         }
-    } while(opcion != 0);
+    } while(posCliente == -1);
+
+    Cliente cli = _srvCliente.leerCliente(posCliente);
+
+
+    int posEmp = -1;
+    do
+    {
+        cout << " Ingrese Legajo del Vendedor: ";
+        cin >> legajoEmp;
+        if(cin.fail()) { cin.clear(); limpiarBuffer(); legajoEmp = -1; }
+
+        posEmp = _srvEmpleado.buscarPorLegajo(legajoEmp);
+        if(posEmp == -1) cout << "   [!] Error: Vendedor no encontrado." << endl;
+    } while(posEmp == -1);
+
+    Empleado emp = _srvEmpleado.leerEmpleado(posEmp);
+
+
+    int posProd = -1;
+    do
+    {
+        cout << " Ingrese Codigo del Producto: ";
+        cin >> codigoProd;
+        posProd = _srvProducto.buscarPorCodigo(codigoProd);
+        if(posProd == -1) cout << "   [!] Error: El articulo no existe o fue dado de baja." << endl;
+    } while(posProd == -1);
+
+    Producto prod = _srvProducto.leerProducto(posProd);
+
+    do
+    {
+        cout << " Cantidad a faturar (Stock disponible: " << prod.getStock() << "): ";
+        cin >> cantidad;
+        if(cin.fail() || cantidad <= 0 || cantidad > prod.getStock())
+        {
+            cout << "   [!] Error: Cantidad no valida o stock insuficiente." << endl;
+            cin.clear();
+            limpiarBuffer();
+            entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+
+    do
+    {
+        cout << " Ingrese Dia, Mes y Anio (Ejemplo: 24 5 2026): ";
+        cin >> dia >> mes >> anio;
+        if(cin.fail() || !validaFecha(dia, mes, anio))
+        {
+            cout << "   [!] Error: Fecha ingresada no es valida." << endl;
+            cin.clear();
+            limpiarBuffer();
+            entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    Fecha fVenta;
+    fVenta.setDia(dia);
+    fVenta.setMes(mes);
+    fVenta.setAnio(anio);
+
+    float montoTotal = cantidad * prod.getPrecio();
+
+
+    Venta nueva;
+    int idVenta = _srvVenta.getCantidadRegistros() + 1;
+
+    nueva.setIdVenta(idVenta);
+    nueva.setIdCliente(cli.getIdPersona());
+    nueva.setIdEmpleado(emp.getIdPersona());
+    nueva.setIdProducto(prod.getIdProducto());
+    nueva.setCantidad(cantidad);
+    nueva.setMontoTotal(montoTotal);
+    nueva.setFechaVenta(fVenta);
+    nueva.setActivo(true);
+
+    if(_srvVenta.guardarVenta(nueva))
+    {
+        _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
+        cout << "\n[OK] ¡Venta N° " << idVenta << " confirmada! Monto Total: $" << montoTotal << endl;
+    }
+    else
+    {
+        cout << "\n[!] Error al intentar registrar la venta." << endl;
+    }
 }
 
-void Manager::menuVentas()
+void Manager::consultarVentas()
 {
-    cout << "\n[ Entrando al Menu de Ventas... ]\n" << endl;
+    int total = _srvVenta.getCantidadRegistros();
+    if(total == 0)
+    {
+        cout << "\n[!] No hay transacciones registradas en el archivo." << endl;
+        return;
+    }
+
+    cout << "\n=====================================================================" << endl;
+    cout << " ID VENTA\tFECHA\t\tCANTIDAD\tMONTO TOTAL" << endl;
+    cout << "=====================================================================" << endl;
+
+    for(int i = 0; i < total; i++)
+    {
+        Venta ven = _srvVenta.leerVenta(i);
+        if(ven.getActivo() == true)
+        {
+            Fecha f = ven.getFechaVenta();
+            cout << " " << ven.getIdVenta() << "\t\t"
+                 << f.getDia() << "/" << f.getMes() << "/" << f.getAnio() << "\t"
+                 << ven.getCantidad() << " un.\t\t$"
+                 << ven.getMontoTotal() << endl;
+        }
+    }
+    cout << "---------------------------------------------------------------------" << endl;
 }
 
-void Manager::menuInventario()
-{
-    cout << "\n[ Entrando al Menu de Inventario... ]\n" << endl;
+                //EMPLEADOS
 
+void Manager::cargarEmpleado()
+{
+    cout << "\n>> ALTA DE NUEVO EMPLEADO <<" << endl;
+    char nombre[50];
+    char apellido[50];
+    char dni[20];
+    int tipoAdmin;
+    bool entradaValida;
+
+    limpiarBuffer();
+
+    do
+    {
+        cout << " Ingrese Nombres: ";
+        cin.getline(nombre, 50);
+        entradaValida = validarTexto(nombre) && strlen(nombre) > 0;
+        if(!entradaValida) cout << "   [!] Error: Texto invalido." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese Apellidos: ";
+        cin.getline(apellido, 50);
+        entradaValida = validarTexto(apellido) && strlen(apellido) > 0;
+        if(!entradaValida) cout << "   [!] Error: Texto invalido." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese DNI: ";
+        cin >> dni;
+        if(!validarNumeros(dni))
+        {
+            cout << "   [!] Error: El DNI solo debe contener numeros." << endl;
+            entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Es Administrador? (1 = SI / 0 = NO): ";
+        cin >> tipoAdmin;
+        if(cin.fail() || (tipoAdmin < 0 || tipoAdmin > 1))
+        {
+            cout << "   [!] Error: Seleccione 1 o 0." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    Empleado emp;
+    int nuevoId = _srvEmpleado.getCantidadRegistros() + 1;
+    int nuevoLegajo = generacionLegajo();
+
+    emp.setIdPersona(nuevoId);
+    emp.setNombre(nombre);
+    emp.setApellido(apellido);
+    emp.setDni(dni);
+    emp.setLegajo(nuevoLegajo);
+    emp.setAdmin(tipoAdmin == 1);
+    emp.setActivo(true);
+
+    bool ok = _srvEmpleado.guardarEmpleado(emp);
+    resultadoAccion(ok);
 }
 
-void Manager::menuPersonal()
+void Manager::listarEmpleados()
 {
-    cout << "\n[ Entrando al Menu de Personal... ]\n" << endl;
+    int cant = _srvEmpleado.getCantidadActivos();
+    if(cant == 0)
+    {
+        cout << "\n[!] No hay empleados activos en el sistema." << endl;
+        return;
+    }
 
+    Empleado* lista = _srvEmpleado.listarEmpleados();
+    if(lista != nullptr)
+    {
+        cout << "\n=====================================================================" << endl;
+        cout << " LEGAJO\tDNI\t\tADMIN\tAPELLIDO Y NOMBRE" << endl;
+        cout << "=====================================================================" << endl;
+        for(int i = 0; i < cant; i++)
+        {
+            cout << " " << lista[i].getLegajo() << "\t"
+                 << lista[i].getDni() << "\t"
+                 << (lista[i].getAdmin() ? "SI" : "NO") << "\t"
+                 << lista[i].getApellido() << ", " << lista[i].getNombre() << endl;
+        }
+        cout << "---------------------------------------------------------------------" << endl;
+        delete[] lista; //
+    }
 }
 
-void Manager::generarInformes()
+void Manager::eliminarEmpleado()
 {
-    cout << "\n[ Entrando a Generacion de Informes... ]\n" << endl;
+    int legajoBuscado;
+    cout << "\n>> BAJA DE EMPLEADO <<" << endl;
+    cout << " Ingrese el LEGAJO del empleado a despedir/dar de baja: ";
+    cin >> legajoBuscado;
 
+    int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
+    if(pos == -1)
+    {
+        cout << "\n[!] No se encontro ningun empleado activo con ese legajo." << endl;
+        return;
+    }
+
+    Empleado emp = _srvEmpleado.leerEmpleado(pos);
+    cout << "\n Personal encontrado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << " Confirmar baja? (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvEmpleado.bajaLogica(pos);
+        resultadoAccion(ok);
+    }
+}
+
+
+        // CLIENTES
+
+void Manager::cargarCliente()
+{
+    cout << "\n>> ALTA DE NUEVO CLIENTE <<" << endl;
+    char nombre[50];
+    char apellido[50];
+    char dni[20];
+    char email[50];
+    bool entradaValida;
+
+    limpiarBuffer();
+
+    do
+    {
+        cout << " Ingrese Nombres: ";
+        cin.getline(nombre, 50);
+        entradaValida = validarTexto(nombre) && strlen(nombre) > 0;
+        if(!entradaValida) cout << "   [!] Error: Texto invalido." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese Apellidos: ";
+        cin.getline(apellido, 50);
+        entradaValida = validarTexto(apellido) && strlen(apellido) > 0;
+        if(!entradaValida) cout << "   [!] Error: Texto invalido." << endl;
+    } while(!entradaValida);
+
+    do
+    {
+        cout << " Ingrese DNI: ";
+        cin >> dni;
+        if(!validarNumeros(dni) || _srvCliente.buscarPorDNI(dni) != -1)
+        {
+            cout << "   [!] Error: DNI invalido o ya registrado." << endl;
+            entradaValida = false;
+        }
+        else entradaValida = true;
+    } while(!entradaValida);
+
+    cout << " Ingrese Correo Electronico (Email): ";
+    cin >> email;
+
+    Cliente cli;
+    int nuevoId = generacionId(1);
+
+    cli.setIdPersona(nuevoId);
+    cli.setNombre(nombre);
+    cli.setApellido(apellido);
+    cli.setDni(dni);
+    cli.setEmail(email);
+    cli.setActivo(true);
+
+    bool ok = _srvCliente.guardarCliente(cli);
+    resultadoAccion(ok);
+}
+
+void Manager::listarClientes()
+{
+    int cant = _srvCliente.getCantidadActivos();
+    if(cant == 0)
+    {
+        cout << "\n[!] No hay clientes registrados." << endl;
+        return;
+    }
+
+    Cliente* lista = _srvCliente.listarClientes();
+    if(lista != nullptr)
+    {
+        cout << "\n=====================================================================" << endl;
+        cout << " DNI\t\tEMAIL\t\t\tAPELLIDO Y NOMBRE" << endl;
+        cout << "=====================================================================" << endl;
+        for(int i = 0; i < cant; i++)
+        {
+            cout << " " << lista[i].getDni() << "\t"
+                 << lista[i].getEmail() << "\t\t"
+                 << lista[i].getApellido() << ", " << lista[i].getNombre() << endl;
+        }
+        cout << "---------------------------------------------------------------------" << endl;
+        delete[] lista;
+    }
+}
+
+void Manager::eliminarCliente()
+{
+    char dniBuscado[20];
+    cout << "\n>> BAJA DE CLIENTE <<" << endl;
+    cout << " Ingrese el DNI del cliente a eliminar: ";
+    cin >> dniBuscado;
+
+    int pos = _srvCliente.buscarPorDNI(dniBuscado);
+    if(pos == -1)
+    {
+        cout << "\n[!] Cliente no encontrado." << endl;
+        return;
+    }
+
+    Cliente cli = _srvCliente.leerCliente(pos);
+    cout << "\n Cliente: " << cli.getApellido() << ", " << cli.getNombre() << endl;
+    cout << " Confirmar eliminacion? (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvCliente.bajaLogica(pos);
+        resultadoAccion(ok);
+    }
+}
+
+                //HORARIOS
+
+void Manager::registrarHorario()
+{
+    cout << "\n>> REGISTRAR FICHADA DE TURNO <<" << endl;
+    int legajo, dia, mes, anio, hEnt, mEnt, hSal, mSal;
+    bool valida;
+
+
+    int posEmp = -1;
+    do
+    {
+        cout << " Ingrese Legajo del Empleado: ";
+        cin >> legajo;
+        posEmp = _srvEmpleado.buscarPorLegajo(legajo);
+        if(posEmp == -1) cout << "   [!] Empleado inexistente." << endl;
+    } while(posEmp == -1);
+
+    Empleado emp = _srvEmpleado.leerEmpleado(posEmp);
+
+
+    do
+    {
+        cout << " Fecha del turno (Dia Mes Anio): ";
+        cin >> dia >> mes >> anio;
+        valida = validaFecha(dia, mes, anio);
+        if(!valida) cout << "   [!] Fecha incorrecta." << endl;
+    } while(!valida);
+
+    Fecha fTurno;
+    fTurno.setDia(dia); fTurno.setMes(mes); fTurno.setAnio(anio);
+
+
+    do
+    {
+        cout << " Hora de ENTRADA (Hora Minuto): ";
+        cin >> hEnt >> mEnt;
+        valida = validarHora(hEnt, mEnt);
+        if(!valida) cout << "   [!] Formato de hora invalido." << endl;
+    } while(!valida);
+
+    do
+    {
+        cout << " Hora de SALIDA (Hora Minuto): ";
+        cin >> hSal >> mSal;
+        valida = validarHora(hSal, mSal);
+        if(!valida) cout << "   [!] Formato de hora invalido." << endl;
+    } while(!valida);
+
+    Horarios hor;
+    int nuevoId = _srvHorarios.getCantidadRegistros() + 1;
+
+    hor.setIdTurno(nuevoId);
+    hor.setIdEmpleado(emp.getIdPersona());
+    hor.setFecha(fTurno);
+    hor.setHoraEntrada(hEnt);
+    hor.setMinutoEntrada(mEnt);
+    hor.setHoraSalida(hSal);
+    hor.setMinutoSalida(mSal);
+    hor.setPresente(true);
+    hor.setActivo(true);
+
+    bool ok = _srvHorarios.guardarHorario(hor);
+    resultadoAccion(ok);
+}
+
+void Manager::consultarHorasTrabajadas()
+{
+    int legajoBuscado;
+    cout << "\n>> CONSULTA DE HORAS POR EMPLEADO <<" << endl;
+    cout << " Ingrese el Legajo: ";
+    cin >> legajoBuscado;
+
+    int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
+    if(pos == -1)
+    {
+        cout << "\n[!] Empleado no encontrado." << endl;
+        return;
+    }
+
+    Empleado emp = _srvEmpleado.leerEmpleado(pos);
+    int totalRegistros = _srvHorarios.getCantidadRegistros();
+    int horasAcumuladas = 0;
+
+    for(int i = 0; i < totalRegistros; i++)
+    {
+        Horarios h = _srvHorarios.leerHorario(i);
+        if(h.getActivo() == true && h.getIdEmpleado() == emp.getIdPersona())
+        {
+
+            int duracion = h.getHoraSalida() - h.getHoraEntrada();
+            if(duracion > 0) horasAcumuladas += duracion;
+        }
+    }
+
+    cout << "\n El empleado " << emp.getApellido() << " ha trabajado un total de "
+         << horasAcumuladas << " horas registradas." << endl;
+}
+
+
+                // REPORTES
+
+
+void Manager::reporteRecaudacionTotal()
+{
+    limpiarBuffer();
+
+    cout << "\n=================================================" << endl;
+    cout << "        REPORTE: RECAUDACION HISTORICA TOTAL     " << endl;
+    cout << "=================================================" << endl;
+
+    float total = _srvVenta.recaudacionTotal();
+
+    cout << " >> El total neto facturado por la tienda es: $" << total << endl;
+    cout << "=================================================" << endl;
+}
+
+void Manager::reporteRecaudacionAnual()
+{
+    limpiarBuffer();
+
+    cout << "\n=================================================" << endl;
+    cout << "            REPORTE: RECAUDACION ANUAL           " << endl;
+    cout << "=================================================" << endl;
+
+    int anio;
+    bool entradaValida;
+
+    do
+    {
+        cout << " Ingrese el anio a evaluar (Ej: 2026): ";
+        cin >> anio;
+
+        if (cin.fail() || anio < 2000 || anio > 2100)
+        {
+            cout << "   [!] Error: Ingrese un anio valido." << endl;
+            cin.clear();
+            limpiarBuffer();
+            entradaValida = false;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    } while (!entradaValida);
+
+    float total = _srvVenta.recaudacionAnual(anio);
+
+    cout << "\n >> Recaudacion total del anio " << anio << ": $" << total << endl;
+    cout << "=================================================" << endl;
+}
+
+void Manager::reporteRecaudacionMensual()
+{
+    limpiarBuffer();
+
+    cout << "\n=================================================" << endl;
+    cout << "           REPORTE: RECAUDACION MENSUAL          " << endl;
+    cout << "=================================================" << endl;
+
+    int mes, anio;
+    bool entradaValida;
+
+    do
+    {
+        cout << " Ingrese el anio (Ej: 2026): ";
+        cin >> anio;
+        if (cin.fail() || anio < 2000 || anio > 2100)
+        {
+            cout << "   [!] Error: Anio invalido." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+            continue;
+        }
+
+        cout << " Ingrese el numero de mes (1-12): ";
+        cin >> mes;
+        if (cin.fail() || mes < 1 || mes > 12)
+        {
+            cout << "   [!] Error: El mes debe estar entre 1 y 12." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    } while (!entradaValida);
+
+    float total = _srvVenta.recaudacionMensual(mes, anio);
+
+    cout << "\n >> Recaudacion del periodo " << mes << "/" << anio << ": $" << total << endl;
+    cout << "=================================================" << endl;
+}
+
+void Manager::reporteRecaudacionPorEmpleado()
+{
+    limpiarBuffer();
+
+    cout << "\n=================================================" << endl;
+    cout << "        REPORTE: RECAUDACION POR EMPLEADO        " << endl;
+    cout << "=================================================" << endl;
+
+    int legajo;
+    int dIni, mIni, aIni, dFin, mFin, aFin;
+    bool entradaValida;
+
+
+    int posEmp = -1;
+    do
+    {
+        cout << " Ingrese el Legajo del Empleado: ";
+        cin >> legajo;
+        if (cin.fail()) { cin.clear(); limpiarBuffer(); legajo = -1; }
+
+        posEmp = _srvEmpleado.buscarPorLegajo(legajo);
+        if (posEmp == -1)
+        {
+            cout << "   [!] Error: No existe un empleado activo con ese legajo." << endl;
+        }
+    } while (posEmp == -1);
+
+    Empleado emp = _srvEmpleado.leerEmpleado(posEmp);
+
+
+    do
+    {
+        cout << " Fecha INICIO del rango (Dia Mes Anio): ";
+        cin >> dIni >> mIni >> aIni;
+        if (cin.fail() || !validaFecha(dIni, mIni, aIni))
+        {
+            cout << "   [!] Error: Fecha de inicio invalida." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+            continue;
+        }
+
+        cout << " Fecha FIN del rango (Dia Mes Anio): ";
+        cin >> dFin >> mFin >> aFin;
+        if (cin.fail() || !validaFecha(dFin, mFin, aFin))
+        {
+            cout << "   [!] Error: Fecha de fin invalida." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    } while (!entradaValida);
+
+    Fecha fInicio, fFin;
+    fInicio.setDia(dIni); fInicio.setMes(mIni); fInicio.setAnio(aIni);
+    fFin.setDia(dFin); fFin.setMes(mFin); fFin.setAnio(aFin);
+
+    float total = _srvVenta.recaudacionPorEmpleado(emp.getIdPersona(), fInicio, fFin);
+
+    cout << "\n >> Empleado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << " >> Total recaudado en el rango: $" << total << endl;
+    cout << "=================================================" << endl;
+}
+
+void Manager::reporteCantidadPorCategoria()
+{
+    limpiarBuffer();
+
+    cout << "\n=================================================" << endl;
+    cout << "       REPORTE: UNIDADES VENDIDAS POR RUBRO      " << endl;
+    cout << "=================================================" << endl;
+
+    int categoria;
+    int dIni, mIni, aIni, dFin, mFin, aFin;
+    bool entradaValida;
+
+
+    do
+    {
+        cout << " Seleccione Categoria (1: Calzado | 2: Indumentaria | 3: Accesorios): ";
+        cin >> categoria;
+        if (cin.fail() || categoria < 1 || categoria > 3)
+        {
+            cout << "   [!] Error: Rubro incorrecto." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    } while (!entradaValida);
+
+
+    do
+    {
+        cout << " Fecha INICIO del rango (Dia Mes Anio): ";
+        cin >> dIni >> mIni >> aIni;
+        if (cin.fail() || !validaFecha(dIni, mIni, aIni))
+        {
+            cout << "   [!] Error: Fecha de inicio invalida." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+            continue;
+        }
+
+        cout << " Fecha FIN del rango (Dia Mes Anio): ";
+        cin >> dFin >> mFin >> aFin;
+        if (cin.fail() || !validaFecha(dFin, mFin, aFin))
+        {
+            cout << "   [!] Error: Fecha de fin invalida." << endl;
+            cin.clear(); limpiarBuffer(); entradaValida = false;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    } while (!entradaValida);
+
+    Fecha fInicio, fFin;
+    fInicio.setDia(dIni); fInicio.setMes(mIni); fInicio.setAnio(aIni);
+    fFin.setDia(dFin); fFin.setMes(mFin); fFin.setAnio(aFin);
+
+    int unidades = _srvVenta.cantidadVendidaPorCategoria(categoria, fInicio, fFin);
+
+    cout << "\n >> Total de unidades comercializadas de este rubro: " << unidades << " un." << endl;
+    cout << "=================================================" << endl;
 }

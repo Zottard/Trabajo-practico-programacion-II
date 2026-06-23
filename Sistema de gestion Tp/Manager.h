@@ -4,17 +4,42 @@
 #include "ServiceProducto.h"
 #include "ServiceVenta.h"
 #include "ServiceHorarios.h"
+#include "Validaciones.h"
 
 class Manager
 {
     public:
         Manager();
 
-        void menuPrincipal();
-        void menuVentas();
-        void menuInventario();
-        void menuPersonal();
-        void generarInformes();
+        //VENTAS
+        void registrarVenta();
+        void consultarVentas();
+
+        // PRODUCTOS
+        void cargarProducto();
+        void listarProductos();
+        void eliminarProducto();
+
+        //  EMPLEADOS
+        void cargarEmpleado();
+        void listarEmpleados();
+        void eliminarEmpleado();
+
+        //  CLIENTES
+        void cargarCliente();
+        void listarClientes();
+        void eliminarCliente();
+
+        //  HORARIOS
+        void registrarHorario();
+        void consultarHorasTrabajadas();
+
+        // REPORTES
+        void reporteRecaudacionTotal();
+        void reporteRecaudacionAnual();
+        void reporteRecaudacionMensual();
+        void reporteRecaudacionPorEmpleado();
+        void reporteCantidadPorCategoria();
 
     private:
         ServiceCliente _srvCliente;

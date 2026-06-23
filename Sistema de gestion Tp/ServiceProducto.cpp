@@ -250,3 +250,25 @@ Producto* ServiceProducto::listarDisponibles()
     }
     return vec;
 }
+
+bool ServiceProducto::bajaLogica(int pos)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Producto prod;
+        fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
+
+        if(fread(&prod, sizeof(Producto), 1, archivo) == 1)
+        {
+            prod.setActivo(false);
+
+            fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
+            fwrite(&prod, sizeof(Producto), 1, archivo);
+            fclose(archivo);
+            return true;
+        }
+        fclose(archivo);
+    }
+    return false;
+}

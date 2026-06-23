@@ -180,36 +180,7 @@ float ServiceVenta::recaudacionMensual(int mes, int anio)
     return total;
 }
 
-float ServiceVenta::recaudacionPorRangoDeFechas(Fecha inicio, Fecha fin)
-{
-    float total = 0.0f;
-    int cantidad = getCantidadRegistros();
 
-    for (int i = 0; i < cantidad; i++)
-    {
-        Venta ven = leerVenta(i);
-
-        if (ven.getActivo() == true)
-        {
-            Fecha f = ven.getFechaVenta();
-
-            bool okInicio = (f.getAnio() > inicio.getAnio()) ||
-                            (f.getAnio() == inicio.getAnio() && f.getMes() > inicio.getMes()) ||
-                            (f.getAnio() == inicio.getAnio() && f.getMes() == inicio.getMes() && f.getDia() >= inicio.getDia());
-
-            bool okFin    = (f.getAnio() < fin.getAnio()) ||
-                            (f.getAnio() == fin.getAnio() && f.getMes() < fin.getMes()) ||
-                            (f.getAnio() == fin.getAnio() && f.getMes() == fin.getMes() && f.getDia() <= fin.getDia());
-
-            if (okInicio && okFin)
-            {
-                total += ven.getMontoTotal();
-            }
-        }
-    }
-
-    return total;
-}
 
 
 float ServiceVenta::recaudacionPorEmpleado(int idEmpleado, Fecha inicio, Fecha fin)
@@ -287,4 +258,37 @@ int ServiceVenta::cantidadVendidaPorCategoria(int categoriaBuscada, Fecha inicio
         }
     }
     return totalUnidades;
+}
+bool ServiceVenta::anularVenta(int idVenta)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Venta ven;
+        int pos = 0;
+
+        while(fread(&ven, sizeof(Venta), 1, archivo) == 1)
+        {
+
+            if(ven.getIdVenta() == idVenta && ven.getActivo() == true)
+            {
+
+                ven.setActivo(false);
+
+
+                fseek(archivo, sizeof(Venta) * pos, SEEK_SET);
+                fwrite(&ven, sizeof(Venta), 1, archivo);
+                fclose(archivo);
+
+
+                ServiceProducto srvProducto;
+                srvProducto.actualizarStock(ven.getIdProducto(), ven.getCantidad());
+
+                return true;
+            }
+            pos++;
+        }
+        fclose(archivo);
+    }
+    return false;
 }
