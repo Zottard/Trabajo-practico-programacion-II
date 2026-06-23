@@ -9,11 +9,13 @@ class ServiceVenta
 
 
         bool guardarVenta(Venta ven);
+        bool modificarVenta(int pos, Venta ven);
         Venta leerVenta(int pos);
         int buscarPorIdVenta(int idVenta);
         int getCantidadRegistros();
         float recaudacionTotal();
         bool anularVenta(int idVenta);
+        bool reactivarVenta(int idVenta);
 
 
         int buscarPorFecha(Fecha f, int posInicial);

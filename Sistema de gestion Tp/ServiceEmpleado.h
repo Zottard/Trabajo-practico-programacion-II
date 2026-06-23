@@ -11,6 +11,7 @@ class ServiceEmpleado
         Empleado leerEmpleado(int pos);
         int buscarPorLegajo(int legajo);
         bool bajaLogica(int pos);
+        bool altaLogica(int pos);
         int getCantidadRegistros();
         int getCantidadActivos();
         Empleado* listarEmpleados();

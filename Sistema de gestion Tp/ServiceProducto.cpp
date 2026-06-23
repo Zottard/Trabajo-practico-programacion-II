@@ -75,6 +75,20 @@ int ServiceProducto::buscarPorCodigo(const char* codigo)
     return -1;
 }
 
+int ServiceProducto::buscarInactivoPorCodigo(const char* codigo)
+{
+    int cantidad = getCantidadRegistros();
+    for(int i = 0; i < cantidad; i++)
+    {
+        Producto prod = leerProducto(i);
+        if(prod.getActivo() == false && strcmp(prod.getCodigo(), codigo) == 0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool ServiceProducto::actualizarStock(int idProducto, int cantidad)
 {
     FILE* archivo = fopen(_nombreArchivo, "rb+");
@@ -275,6 +289,28 @@ bool ServiceProducto::bajaLogica(int pos)
         if(fread(&prod, sizeof(Producto), 1, archivo) == 1)
         {
             prod.setActivo(false);
+
+            fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
+            fwrite(&prod, sizeof(Producto), 1, archivo);
+            fclose(archivo);
+            return true;
+        }
+        fclose(archivo);
+    }
+    return false;
+}
+
+bool ServiceProducto::altaLogica(int pos)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Producto prod;
+        fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
+
+        if(fread(&prod, sizeof(Producto), 1, archivo) == 1)
+        {
+            prod.setActivo(true);
 
             fseek(archivo, sizeof(Producto) * pos, SEEK_SET);
             fwrite(&prod, sizeof(Producto), 1, archivo);

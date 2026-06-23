@@ -14,24 +14,30 @@ class Manager
         //VENTAS
         void registrarVenta();
         void consultarVentas();
+        void modificarVenta();
+        void eliminarVenta();
+        void altaVenta();
 
         // PRODUCTOS
         void cargarProducto();
         void listarProductos();
         void eliminarProducto();
         void modificarProducto();
+        void altaProducto();
 
         //  EMPLEADOS
         void cargarEmpleado();
         void listarEmpleados();
         void eliminarEmpleado();
         void modificarEmpleado();
+        void altaEmpleado();
 
         //  CLIENTES
         void cargarCliente();
         void listarClientes();
         void eliminarCliente();
         void modificarCliente();
+        void altaCliente();
 
         //  HORARIOS
         void registrarHorario();

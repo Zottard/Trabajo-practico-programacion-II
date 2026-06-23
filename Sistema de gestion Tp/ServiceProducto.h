@@ -10,8 +10,10 @@ class ServiceProducto
         bool modificarProducto(int pos, Producto prod);
         Producto leerProducto(int pos);
         int buscarPorCodigo(const char* codigo);
+        int buscarInactivoPorCodigo(const char* codigo);
         int getCantidadRegistros();
         bool bajaLogica(int pos);
+        bool altaLogica(int pos);
         bool actualizarStock(int idProducto, int cantidad);
 
         int getCantidadActivos();

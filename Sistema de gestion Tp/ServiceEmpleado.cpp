@@ -142,3 +142,25 @@ bool ServiceEmpleado::bajaLogica(int pos)
     }
     return false;
 }
+
+bool ServiceEmpleado::altaLogica(int pos)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Empleado emp;
+        fseek(archivo, sizeof(Empleado) * pos, SEEK_SET);
+
+        if(fread(&emp, sizeof(Empleado), 1, archivo) == 1)
+        {
+            emp.setActivo(true);
+
+            fseek(archivo, sizeof(Empleado) * pos, SEEK_SET);
+            fwrite(&emp, sizeof(Empleado), 1, archivo);
+            fclose(archivo);
+            return true;
+        }
+        fclose(archivo);
+    }
+    return false;
+}

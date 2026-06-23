@@ -150,6 +150,157 @@ void Manager::consultarVentas()
     cout << "---------------------------------------------------------------------" << endl;
 }
 
+void Manager::modificarVenta()
+{
+    int idVenta;
+    cout << "\nMODIFICAR VENTA" << endl;
+    cout << " Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int pos = _srvVenta.buscarPorIdVenta(idVenta);
+    if(pos == -1)
+    {
+        cout << "\nVenta no encontrada." << endl;
+        return;
+    }
+
+    Venta ven = _srvVenta.leerVenta(pos);
+    if(ven.getActivo() == false)
+    {
+        cout << "\nLa venta esta anulada, no se puede modificar." << endl;
+        return;
+    }
+
+    int totalProductos = _srvProducto.getCantidadRegistros();
+    Producto prod;
+    bool prodEncontrado = false;
+    for(int i = 0; i < totalProductos; i++)
+    {
+        prod = _srvProducto.leerProducto(i);
+        if(prod.getIdProducto() == ven.getIdProducto())
+        {
+            prodEncontrado = true;
+            break;
+        }
+    }
+
+    if(!prodEncontrado)
+    {
+        cout << "\nNo se pudo localizar el producto asociado a la venta." << endl;
+        return;
+    }
+
+    int stockDisponible = prod.getStock() + ven.getCantidad();
+    int dia, mes, anio, cantidad;
+
+    cout << "\n Datos actuales: Cantidad " << ven.getCantidad() << " | Stock disponible: " << stockDisponible << endl;
+
+    limpiarBuffer();
+
+    for(;;)
+    {
+        cout << " Nueva Cantidad: ";
+        cin >> cantidad;
+        if(!cin.fail() && cantidad > 0 && cantidad <= stockDisponible) break;
+
+        cout << "   Error: Cantidad no valida o stock insuficiente." << endl;
+        cin.clear();
+        limpiarBuffer();
+        if(!reintentarOVolver()) return;
+    }
+
+    for(;;)
+    {
+        cout << " Nueva Fecha (Dia Mes Anio): ";
+        cin >> dia >> mes >> anio;
+        if(!cin.fail() && validaFecha(dia, mes, anio)) break;
+
+        cout << "   Error: Fecha ingresada no es valida." << endl;
+        cin.clear();
+        limpiarBuffer();
+        if(!reintentarOVolver()) return;
+    }
+
+    Fecha fNueva;
+    fNueva.setDia(dia);
+    fNueva.setMes(mes);
+    fNueva.setAnio(anio);
+
+    int diferencia = cantidad - ven.getCantidad();
+
+    ven.setCantidad(cantidad);
+    ven.setMontoTotal(cantidad * prod.getPrecio());
+    ven.setFechaVenta(fNueva);
+
+    bool ok = _srvVenta.modificarVenta(pos, ven);
+    if(ok) _srvProducto.actualizarStock(prod.getIdProducto(), -diferencia);
+    resultadoAccion(ok);
+}
+
+void Manager::eliminarVenta()
+{
+    int idVenta;
+    cout << "\nBAJA DE VENTA" << endl;
+    cout << " Ingrese el ID de la venta a anular: ";
+    cin >> idVenta;
+
+    int pos = _srvVenta.buscarPorIdVenta(idVenta);
+    if(pos == -1)
+    {
+        cout << "\nVenta no encontrada." << endl;
+        return;
+    }
+
+    Venta ven = _srvVenta.leerVenta(pos);
+    if(ven.getActivo() == false)
+    {
+        cout << "\nLa venta ya se encuentra anulada." << endl;
+        return;
+    }
+
+    cout << "\n Venta encontrada: Cantidad " << ven.getCantidad() << " | Monto $" << ven.getMontoTotal() << endl;
+    cout << " Confirmar anulacion (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvVenta.anularVenta(idVenta);
+        resultadoAccion(ok);
+    }
+}
+
+void Manager::altaVenta()
+{
+    int idVenta;
+    cout << "\nALTA DE VENTA" << endl;
+    cout << " Ingrese el ID de la venta a reactivar: ";
+    cin >> idVenta;
+
+    int pos = _srvVenta.buscarPorIdVenta(idVenta);
+    if(pos == -1)
+    {
+        cout << "\nVenta no encontrada." << endl;
+        return;
+    }
+
+    Venta ven = _srvVenta.leerVenta(pos);
+    if(ven.getActivo() == true)
+    {
+        cout << "\nLa venta ya se encuentra activa." << endl;
+        return;
+    }
+
+    cout << "\n Venta encontrada: Cantidad " << ven.getCantidad() << " | Monto $" << ven.getMontoTotal() << endl;
+    cout << " Confirmar reactivacion (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvVenta.reactivarVenta(idVenta);
+        resultadoAccion(ok);
+    }
+}
+
                 //EMPLEADOS
 
 void Manager::cargarEmpleado()
@@ -335,6 +486,38 @@ void Manager::modificarEmpleado()
     resultadoAccion(ok);
 }
 
+void Manager::altaEmpleado()
+{
+    int legajoBuscado;
+    cout << "\nALTA DE EMPLEADO" << endl;
+    cout << " Ingrese el LEGAJO del empleado a reactivar: ";
+    cin >> legajoBuscado;
+
+    int pos = _srvEmpleado.buscarPorLegajo(legajoBuscado);
+    if(pos == -1)
+    {
+        cout << "\nEmpleado no encontrado." << endl;
+        return;
+    }
+
+    Empleado emp = _srvEmpleado.leerEmpleado(pos);
+    if(emp.getActivo() == true)
+    {
+        cout << "\nEl empleado ya se encuentra activo." << endl;
+        return;
+    }
+
+    cout << "\n Personal encontrado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << " Confirmar reactivacion (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvEmpleado.altaLogica(pos);
+        resultadoAccion(ok);
+    }
+}
+
 
         // CLIENTES
 
@@ -514,6 +697,38 @@ void Manager::modificarCliente()
 
     bool ok = _srvCliente.modificarCliente(pos, cli);
     resultadoAccion(ok);
+}
+
+void Manager::altaCliente()
+{
+    char dniBuscado[20];
+    cout << "\nALTA DE CLIENTE" << endl;
+    cout << " Ingrese el DNI del cliente a reactivar: ";
+    cin >> setw(20) >> dniBuscado;
+
+    int pos = _srvCliente.buscarPorDNI(dniBuscado);
+    if(pos == -1)
+    {
+        cout << "\nCliente no encontrado." << endl;
+        return;
+    }
+
+    Cliente cli = _srvCliente.leerCliente(pos);
+    if(cli.getActivo() == true)
+    {
+        cout << "\nEl cliente ya se encuentra activo." << endl;
+        return;
+    }
+
+    cout << "\n Cliente: " << cli.getApellido() << ", " << cli.getNombre() << endl;
+    cout << " Confirmar reactivacion (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvCliente.altaLogica(pos);
+        resultadoAccion(ok);
+    }
 }
 
                 //HORARIOS
@@ -1046,4 +1261,30 @@ void Manager::modificarProducto()
 
     bool ok = _srvProducto.modificarProducto(pos, prod);
     resultadoAccion(ok);
+}
+
+void Manager::altaProducto()
+{
+    char codigoBuscado[30];
+    cout << "\nALTA DE PRODUCTO" << endl;
+    cout << " Ingrese el Codigo del producto a reactivar: ";
+    cin >> setw(30) >> codigoBuscado;
+
+    int pos = _srvProducto.buscarInactivoPorCodigo(codigoBuscado);
+    if(pos == -1)
+    {
+        cout << "\nNo se encontro un producto dado de baja con ese codigo." << endl;
+        return;
+    }
+
+    Producto prod = _srvProducto.leerProducto(pos);
+    cout << "\n Producto encontrado: " << prod.getNombre() << endl;
+    cout << " Confirmar reactivacion (1 = SI / 0 = NO): ";
+    int conf;
+    cin >> conf;
+    if(conf == 1)
+    {
+        bool ok = _srvProducto.altaLogica(pos);
+        resultadoAccion(ok);
+    }
 }

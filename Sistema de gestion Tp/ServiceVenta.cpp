@@ -26,6 +26,19 @@ bool ServiceVenta::guardarVenta(Venta ven)
     }
 }
 
+bool ServiceVenta::modificarVenta(int pos, Venta ven)
+{
+    FILE* archivoVenta = fopen(_nombreArchivo, "rb+");
+    if(archivoVenta != nullptr)
+    {
+        fseek(archivoVenta, sizeof(Venta) * pos, SEEK_SET);
+        fwrite(&ven, sizeof(Venta), 1, archivoVenta);
+        fclose(archivoVenta);
+        return true;
+    }
+    return false;
+}
+
 Venta ServiceVenta::leerVenta(int pos)
 {
     Venta registro;
@@ -283,6 +296,36 @@ bool ServiceVenta::anularVenta(int idVenta)
 
                 ServiceProducto srvProducto;
                 srvProducto.actualizarStock(ven.getIdProducto(), ven.getCantidad());
+
+                return true;
+            }
+            pos++;
+        }
+        fclose(archivo);
+    }
+    return false;
+}
+
+bool ServiceVenta::reactivarVenta(int idVenta)
+{
+    FILE* archivo = fopen(_nombreArchivo, "rb+");
+    if(archivo != nullptr)
+    {
+        Venta ven;
+        int pos = 0;
+
+        while(fread(&ven, sizeof(Venta), 1, archivo) == 1)
+        {
+            if(ven.getIdVenta() == idVenta && ven.getActivo() == false)
+            {
+                ven.setActivo(true);
+
+                fseek(archivo, sizeof(Venta) * pos, SEEK_SET);
+                fwrite(&ven, sizeof(Venta), 1, archivo);
+                fclose(archivo);
+
+                ServiceProducto srvProducto;
+                srvProducto.actualizarStock(ven.getIdProducto(), -ven.getCantidad());
 
                 return true;
             }

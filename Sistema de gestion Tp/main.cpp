@@ -43,6 +43,9 @@ int main()
                     cout << "\n--- MODULO: GESTION DE VENTAS ---" << endl;
                     cout << " [ 1 ] . Registrar Nueva Venta" << endl;
                     cout << " [ 2 ] . Consultar Historial de Facturacion" << endl;
+                    cout << " [ 3 ] . Modificar Venta" << endl;
+                    cout << " [ 4 ] . Anular Venta (Baja Logica)" << endl;
+                    cout << " [ 5 ] . Reactivar Venta (Alta Logica)" << endl;
                     cout << "------------------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -62,6 +65,15 @@ int main()
                             break;
                         case 2:
                             manager.consultarVentas();
+                            break;
+                        case 3:
+                            manager.modificarVenta();
+                            break;
+                        case 4:
+                            manager.eliminarVenta();
+                            break;
+                        case 5:
+                            manager.altaVenta();
                             break;
                         case 0:
                             break;
@@ -84,6 +96,7 @@ int main()
                     cout << " [ 2 ] . Listar Catalogo de Productos (Por Precio)" << endl;
                     cout << " [ 3 ] . Eliminar Producto (Baja Logica)" << endl;
                     cout << " [ 4 ] . Modificar Producto" << endl;
+                    cout << " [ 5 ] . Reactivar Producto (Alta Logica)" << endl;
                     cout << "---------------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -110,6 +123,9 @@ int main()
                         case 4:
                             manager.modificarProducto();
                             break;
+                        case 5:
+                            manager.altaProducto();
+                            break;
                         case 0:
                             break;
                         default:
@@ -131,6 +147,7 @@ int main()
                     cout << " [ 2 ] . Listar Clientes Activos" << endl;
                     cout << " [ 3 ] . Eliminar Cliente" << endl;
                     cout << " [ 4 ] . Modificar Cliente" << endl;
+                    cout << " [ 5 ] . Reactivar Cliente (Alta Logica)" << endl;
                     cout << "----------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -157,6 +174,9 @@ int main()
                         case 4:
                             manager.modificarCliente();
                             break;
+                        case 5:
+                            manager.altaCliente();
+                            break;
                         case 0:
                             break;
                         default:
@@ -178,6 +198,7 @@ int main()
                     cout << " [ 2 ] . Listar Personal de la Tienda" << endl;
                     cout << " [ 3 ] . Eliminar Empleado" << endl;
                     cout << " [ 4 ] . Modificar Empleado" << endl;
+                    cout << " [ 5 ] . Reactivar Empleado (Alta Logica)" << endl;
                     cout << "-----------------------------------" << endl;
                     cout << " [ 0 ] . Volver al Menu Principal" << endl;
                     cout << " Opcion: ";
@@ -203,6 +224,9 @@ int main()
                             break;
                         case 4:
                             manager.modificarEmpleado();
+                            break;
+                        case 5:
+                            manager.altaEmpleado();
                             break;
                         case 0:
                             break;

@@ -11,6 +11,7 @@ class ServiceCliente
         Cliente leerCliente(int pos);
         int buscarPorDNI(const char* dni);
         bool bajaLogica(int pos);
+        bool altaLogica(int pos);
         int getCantidadRegistros();
         int getCantidadActivos();
         Cliente* listarClientes();
