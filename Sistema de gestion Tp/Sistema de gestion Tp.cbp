@@ -44,6 +44,8 @@
 		<Unit filename="Horarios.h" />
 		<Unit filename="Manager.cpp" />
 		<Unit filename="Manager.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
 		<Unit filename="Persona.cpp" />
 		<Unit filename="Persona.h" />
 		<Unit filename="Producto.cpp" />

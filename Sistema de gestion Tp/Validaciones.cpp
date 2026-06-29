@@ -15,7 +15,7 @@ using namespace std;
 
 void resultadoAccion(bool respuesta)
 {
-    cout << endl << "----------------------------------------" << endl;
+    cout << endl;
     if(respuesta)
     {
         cout << " EXITOSO: Se guardo correctamente." << endl;
@@ -24,8 +24,7 @@ void resultadoAccion(bool respuesta)
     {
         cout << " ERROR: No se ha podido guardar, intente nuevamente." << endl;
     }
-    cout << "----------------------------------------" << endl;
-    cout << "Presione ENTER para continuar...";
+    cout << "\nPresione ENTER para continuar...";
     cin.get();
 }
 
